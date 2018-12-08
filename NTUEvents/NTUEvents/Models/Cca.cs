@@ -13,6 +13,6 @@ namespace NTUEvents.Models
         public string Schedule { get; set; }
         public string Venue { get; set; }
         public string Contact { get; set; }
-        public int MemberId { get; set; }
+        public int UserId { get; set; }
     }
 }
