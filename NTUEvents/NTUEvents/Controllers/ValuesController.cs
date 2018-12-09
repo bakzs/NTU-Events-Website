@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NTUEvents.Models;
 
 namespace NTUEvents.Controllers
 {
@@ -12,9 +13,13 @@ namespace NTUEvents.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Userprofile>> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            //Sample of how it works
+            var dbcontext = new ntueventsContext();
+            var userprofile = dbcontext.Userprofile.ToList();
+            return userprofile;
         }
 
         // GET api/values/5

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NTUEvents.Models
 {
-    public class EventReg
+    public partial class Eventreg
     {
-        public int EventRegId { get; set; }
-        public int EventId { get; set; }
-        public int UserId { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public Boolean IsDeleted { get; set; }
+        public int EventregId { get; set; }
+        public int? EventidEventregFk { get; set; }
+        public int? UserIdEventregFk { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public bool? IsDeleted { get; set; }
+
+        public Event EventidEventregFkNavigation { get; set; }
+        public User UserIdEventregFkNavigation { get; set; }
     }
 }

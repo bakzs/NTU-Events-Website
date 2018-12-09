@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NTUEvents.Models
 {
-    public class UserProfile
+    public partial class Userprofile
     {
+        public Userprofile()
+        {
+            User = new HashSet<User>();
+        }
+
         public int UserProfileId { get; set; }
         public string Name { get; set; }
-        public int Contact { get; set; }
+        public int? Contact { get; set; }
         public string Email { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public Boolean isDeleted { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public bool? IsDeleted { get; set; }
+
+        public ICollection<User> User { get; set; }
     }
 }
