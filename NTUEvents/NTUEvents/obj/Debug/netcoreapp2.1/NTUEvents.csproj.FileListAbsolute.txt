@@ -23,3 +23,17 @@ C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\
 C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorTargetAssemblyInfo.cache
 C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.dll
 C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.pdb
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.deps.json
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.runtimeconfig.json
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.runtimeconfig.dev.json
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.dll
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.pdb
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.csprojAssemblyReference.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.csproj.CoreCompileInputs.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorAssemblyInfo.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorAssemblyInfo.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.AssemblyInfoInputs.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.AssemblyInfo.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorTargetAssemblyInfo.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.dll
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.pdb
