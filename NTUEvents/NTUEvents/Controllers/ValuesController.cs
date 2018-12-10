@@ -11,19 +11,20 @@ namespace NTUEvents.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ntueventsContext ntueventsContext_db;
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Userprofile>> Get()
-        {   private readonly ntueventsContext ntueventsContext_db;
-
-            public ValuesController(ntueventsContext context)
-            {
-            ntueventsContext_db = context;
-            }
-
+        {
             //Sample of how it works
             var userprofile = ntueventsContext_db.Userprofile.ToList();
             return userprofile;
+        }
+
+
+        public ValuesController(ntueventsContext context)
+        {
+            ntueventsContext_db = context;
         }
 
         // GET api/values/5
