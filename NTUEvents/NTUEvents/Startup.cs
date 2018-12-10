@@ -32,6 +32,9 @@ namespace NTUEvents
 
             services.AddDbContextPool<NtuEventsDbContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +42,11 @@ namespace NTUEvents
         {
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePages();
                 app.UseDeveloperExceptionPage();
+                app.UseStaticFiles();
+                app.UseSession();
+                app.UseMvcWithDefaultRoute();
             }
             else
             {
