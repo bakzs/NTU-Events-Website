@@ -11,7 +11,7 @@ namespace NTUEvents.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly ntueventsContext ntueventsContext_db;
+        private readonly NtuEventsDbContext ntueventsContext_db;
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Userprofile>> Get()
@@ -22,7 +22,7 @@ namespace NTUEvents.Controllers
         }
 
 
-        public ValuesController(ntueventsContext context)
+        public ValuesController(NtuEventsDbContext context)
         {
             ntueventsContext_db = context;
         }
