@@ -13,7 +13,39 @@ namespace NTUEvents.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            return View($"This is a userprofilecontroller");
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetUser(int userId)
+        {
+            //Return user profile
+
+            //Return a view object
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] User UserItem)
+        {
+            //Create user profile
+
+            //Return a view object
+            return RedirectToAction("Index");
+        }
+        [HttpPut]
+        public IActionResult UpdateUser(int userId)
+        {
+            //Update user profile
+
+            //Return a view object
+            return RedirectToAction("Index");
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int userId)
+        {
+            //Delete user profile
+
+            //Return a view object
+            return RedirectToAction("Index");
         }
     }
-}
