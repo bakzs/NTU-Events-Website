@@ -12,13 +12,14 @@ namespace NTUEvents.Controllers
     [Route("api/[controller]")]
     public class UserProfileController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private NtuEventsContext NtuEventsContext;
+
+        public UserProfileController(NtuEventsContext DbContext)
         {
-            return View($"This is a userprofilecontroller");
+            NtuEventsContext = DbContext;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetUserProfile(int userProfileId)
         {
             //Return user profile
@@ -34,7 +35,7 @@ namespace NTUEvents.Controllers
             //Return a view object
             return RedirectToAction("Index");
         }
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public IActionResult UpdateUserProfile(int userProfileId)
         {
             //Update user profile
@@ -42,7 +43,7 @@ namespace NTUEvents.Controllers
             //Return a view object
             return RedirectToAction("Index");
         }
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public IActionResult DeleteUserProfile(int userProfileId)
         {
             //Delete user profile

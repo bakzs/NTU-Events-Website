@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NTUEvents.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace NTUEvents.Controllers
 {
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private NtuEventsContext NtuEventsContext;
+
+        public UserController(NtuEventsContext DbContext)
         {
-            return View($"This is a userprofilecontroller");
+            NtuEventsContext = DbContext;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetUser(int userId)
         {
             //Return user profile
@@ -24,6 +27,7 @@ namespace NTUEvents.Controllers
             //Return a view object
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public IActionResult CreateUser([FromBody] User UserItem)
         {
@@ -32,7 +36,8 @@ namespace NTUEvents.Controllers
             //Return a view object
             return RedirectToAction("Index");
         }
-        [HttpPut]
+
+        [HttpPut("{id:int}")]
         public IActionResult UpdateUser(int userId)
         {
             //Update user profile
@@ -40,7 +45,8 @@ namespace NTUEvents.Controllers
             //Return a view object
             return RedirectToAction("Index");
         }
-        [HttpDelete("{id}")]
+
+        [HttpDelete("{id:int}")]
         public IActionResult DeleteUser(int userId)
         {
             //Delete user profile
@@ -49,3 +55,4 @@ namespace NTUEvents.Controllers
             return RedirectToAction("Index");
         }
     }
+}
