@@ -14,7 +14,7 @@ namespace NTUEvents.Controllers
         private readonly NtuEventsDbContext ntueventsContext_db;
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Userprofile>> Get()
+        public ActionResult<IEnumerable<UserProfile>> Get()
         {
             //Sample of how it works
             var userprofile = ntueventsContext_db.Userprofile.ToList();

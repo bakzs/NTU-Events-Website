@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace NTUEvents.Models
 {
-    public partial class Userprofile
+    public class UserProfile
     {
-        public Userprofile()
+        public UserProfile()
         {
-            User = new HashSet<User>();
+            Users = new HashSet<User>();
         }
 
         public int UserProfileId { get; set; }
         public string Name { get; set; }
-        public int? Contact { get; set; }
+        public int? ContactNumber { get; set; }
         public string Email { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public ICollection<User> User { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

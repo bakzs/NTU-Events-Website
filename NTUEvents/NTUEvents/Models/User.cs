@@ -19,7 +19,7 @@ namespace NTUEvents.Models
         public DateTime? CreatedDate { get; set; }
         public bool? IsDeleted { get; set; }
 
-        public Userprofile UserProfile { get; set; }
+        public UserProfile UserProfile { get; set; }
         public ICollection<Cca> Cca { get; set; }
         public ICollection<Ccamembership> CcaMembership { get; set; }
         public ICollection<Eventreg> Events { get; set; }

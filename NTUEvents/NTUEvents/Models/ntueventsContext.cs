@@ -20,7 +20,7 @@ namespace NTUEvents.Models
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<Eventreg> Eventreg { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Userprofile> Userprofile { get; set; }
+        public virtual DbSet<UserProfile> Userprofile { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -209,18 +209,18 @@ namespace NTUEvents.Models
                 entity.Property(e => e.Username).HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.UserProfile)
-                    .WithMany(p => p.User)
+                    .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserProfileId)
                     .HasConstraintName("UserProfileId_User_FK");
             });
 
-            modelBuilder.Entity<Userprofile>(entity =>
+            modelBuilder.Entity<UserProfile>(entity =>
             {
                 entity.ToTable("userprofile");
 
                 entity.Property(e => e.UserProfileId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Contact).HasColumnType("int(11)");
+                entity.Property(e => e.ContactNumber).HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
