@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NTUEvents.Models
 {
-    public partial class NtuEventsDbContext : DbContext
+    public class NtuEventsContext : DbContext
     {
-        public NtuEventsDbContext()
+        public NtuEventsContext()
         {
         }
 
-        public NtuEventsDbContext(DbContextOptions<NtuEventsDbContext> options)
+        public NtuEventsContext(DbContextOptions<NtuEventsContext> options)
             : base(options)
         {
         }
