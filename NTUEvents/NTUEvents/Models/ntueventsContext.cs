@@ -98,7 +98,7 @@ namespace NTUEvents.Models
                     .HasConstraintName("CcaId_CcaMem_FK");
 
                 entity.HasOne(d => d.UserIdCcaMemFkNavigation)
-                    .WithMany(p => p.Ccamembership)
+                    .WithMany(p => p.CcaMembership)
                     .HasForeignKey(d => d.UserIdCcaMemFk)
                     .HasConstraintName("UserId_CcaMem_FK");
             });
@@ -180,7 +180,7 @@ namespace NTUEvents.Models
                     .HasConstraintName("EventId_Eventreg_FK");
 
                 entity.HasOne(d => d.UserIdEventregFkNavigation)
-                    .WithMany(p => p.Eventreg)
+                    .WithMany(p => p.Events)
                     .HasForeignKey(d => d.UserIdEventregFk)
                     .HasConstraintName("UserId_Eventreg_FK");
             });
@@ -189,7 +189,7 @@ namespace NTUEvents.Models
             {
                 entity.ToTable("user");
 
-                entity.HasIndex(e => e.UserProfileIdUserFk)
+                entity.HasIndex(e => e.UserProfileId)
                     .HasName("UserProfileId_idx");
 
                 entity.Property(e => e.UserId).HasColumnType("int(11)");
@@ -202,15 +202,15 @@ namespace NTUEvents.Models
 
                 entity.Property(e => e.Password).HasColumnType("varchar(128)");
 
-                entity.Property(e => e.UserProfileIdUserFk)
+                entity.Property(e => e.UserProfileId)
                     .HasColumnName("UserProfileId_User_FK")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Username).HasColumnType("varchar(45)");
 
-                entity.HasOne(d => d.UserProfileIdUserFkNavigation)
+                entity.HasOne(d => d.UserProfile)
                     .WithMany(p => p.User)
-                    .HasForeignKey(d => d.UserProfileIdUserFk)
+                    .HasForeignKey(d => d.UserProfileId)
                     .HasConstraintName("UserProfileId_User_FK");
             });
 
