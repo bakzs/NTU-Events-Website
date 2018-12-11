@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NTUEvents.Models
 {
-    public partial class Ccamembership
+    public partial class CcaMembership
     {
         public int CcaMembershipId { get; set; }
         public int? UserIdCcaMemFk { get; set; }

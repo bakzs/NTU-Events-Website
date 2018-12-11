@@ -7,7 +7,7 @@ namespace NTUEvents.Models
     {
         public Cca()
         {
-            Ccamembership = new HashSet<Ccamembership>();
+            Ccamembership = new HashSet<CcaMembership>();
             Event = new HashSet<Event>();
         }
 
@@ -20,7 +20,7 @@ namespace NTUEvents.Models
         public int? UserIdCcaFk { get; set; }
 
         public User UserIdCcaFkNavigation { get; set; }
-        public ICollection<Ccamembership> Ccamembership { get; set; }
+        public ICollection<CcaMembership> Ccamembership { get; set; }
         public ICollection<Event> Event { get; set; }
     }
 }

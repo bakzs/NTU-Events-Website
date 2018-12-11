@@ -6,7 +6,7 @@ namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
     {
-        public NtuEventsContext()
+        public NtuEventsContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -15,20 +15,15 @@ namespace NTUEvents.Models
         {
         }
 
-        public virtual DbSet<Cca> Cca { get; set; }
-        public virtual DbSet<Ccamembership> Ccamembership { get; set; }
-        public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<Eventreg> Eventreg { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserProfile> Userprofile { get; set; }
+        public DbSet<Cca> Ccas { get; set; }
+        public DbSet<CcaMembership> CcaMemberships { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Eventreg> Eventregs { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> Userprofiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;port=3306;database=ntuevents;user=root;password=test1234!");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,7 +57,7 @@ namespace NTUEvents.Models
                     .HasConstraintName("UserId_Cca_FK");
             });
 
-            modelBuilder.Entity<Ccamembership>(entity =>
+            modelBuilder.Entity<CcaMembership>(entity =>
             {
                 entity.ToTable("ccamembership");
 

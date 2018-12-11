@@ -30,7 +30,7 @@ namespace NTUEvents
         {
             services.AddMvc();
 
-            services.AddDbContextPool<NtuEventsContext>(
+            services.AddDbContext<NtuEventsContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors();
