@@ -1,1 +1,16 @@
-.vs/
+
+NTUEvents/.vs/NTUEvents/DesignTimeBuild/.dtbcache
+NTUEvents/.vs/NTUEvents/v15/.suo
+NTUEvents/.vs/NTUEvents/v15/Server/sqlite3/storage.ide-shm
+NTUEvents/.vs/NTUEvents/v15/Server/sqlite3/storage.ide-wal
+NTUEvents/NTUEvents/bin/Debug/netcoreapp2.1/NTUEvents.dll
+NTUEvents/NTUEvents/bin/Debug/netcoreapp2.1/NTUEvents.pdb
+NTUEvents/NTUEvents/obj/Debug/netcoreapp2.1/NTUEvents.assets.cache
+NTUEvents/NTUEvents/obj/Debug/netcoreapp2.1/NTUEvents.csproj.CoreCompileInputs.cache
+NTUEvents/NTUEvents/obj/Debug/netcoreapp2.1/NTUEvents.csproj.FileListAbsolute.txt
+NTUEvents/NTUEvents/obj/Debug/netcoreapp2.1/NTUEvents.csprojAssemblyReference.cache
+NTUEvents/NTUEvents/obj/Debug/netcoreapp2.1/NTUEvents.dll
+NTUEvents/NTUEvents/obj/Debug/netcoreapp2.1/NTUEvents.pdb
+NTUEvents/NTUEvents/obj/NTUEvents.csproj.nuget.cache
+NTUEvents/NTUEvents/obj/NTUEvents.csproj.nuget.g.props
+NTUEvents/NTUEvents/obj/project.assets.json
