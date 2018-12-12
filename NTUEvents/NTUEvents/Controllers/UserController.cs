@@ -12,7 +12,7 @@ namespace NTUEvents.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private NtuEventsContext NtuEventsContext;
+        private readonly NtuEventsContext NtuEventsContext;
 
         public UserController(NtuEventsContext DbContext)
         {

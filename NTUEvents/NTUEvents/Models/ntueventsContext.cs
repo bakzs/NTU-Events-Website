@@ -6,7 +6,8 @@ namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
     {
-        public NtuEventsContext(DbContextOptions options) : base(options)
+        // Removed DbContextOptions<NtuEventsContext> options due to constructor conflict
+        public NtuEventsContext()
         {
         }
 
@@ -15,16 +16,13 @@ namespace NTUEvents.Models
         {
         }
 
-        public DbSet<Cca> Ccas { get; set; }
-        public DbSet<CcaMembership> CcaMemberships { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Eventreg> Eventregs { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserProfile> Userprofiles { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
+        //Var name leave it the same as Class name. 
+        public DbSet<Cca> Cca { get; set; }
+        public DbSet<CcaMembership> CcaMembership { get; set; }
+        public DbSet<Event> Event { get; set; }
+        public DbSet<Eventreg> Eventreg { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<UserProfile> Userprofile { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
