@@ -36,3 +36,13 @@ C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Web
 C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorTargetAssemblyInfo.cache
 C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.dll
 C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.pdb
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.csprojAssemblyReference.cache
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.Views.dll
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.Views.pdb
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.TagHelpers.input.cache
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.TagHelpers.output.cache
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorCoreGenerate.cache
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Home\Event.g.cshtml.cs
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorTargetAssemblyInfo.cs
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.Views.pdb
+C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.csproj.CopyComplete

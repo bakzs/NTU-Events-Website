@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- Bootstrap cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width" />
+    <title>Event</title>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <h2>User #1 Event</h2>
+        <br />
+        <div id="eventTb">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Quota</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(event,index) in events">
+                        <td>{{index+1}}</td>
+                        <td>{{event.Title}}</td>
+                        <td>{{event.Type}}</td>
+                        <td>{{event.Venue}}</td>
+                        <td>{{event.Description}}</td>
+                        <td>{{event.StartDate}}</td>
+                        <td>{{event.EndDate}}</td>
+                        <td>{{event.Quota}}</td>
+                        <td><button type="button" class="btn btn-outline-info btn-block">Edit</button>
+                        <button type="button" class="btn btn-outline-danger btn-block">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Vue and Axios cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script>
+        new Vue({
+            el: '#eventTb',
+            data: {
+                events: []
+            },
+            mounted() {
+                axios.get("https://localhost:44362/api/event/1").then(response => {
+                    this.events = response.data
+                })
+            }
+        })
+
+    </script>
+</body>
+</html>

@@ -55,7 +55,11 @@ namespace NTUEvents
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            //Page Routing
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=EventPage}");
+            });
         }
     }
 }
