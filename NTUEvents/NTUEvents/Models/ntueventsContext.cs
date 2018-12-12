@@ -22,7 +22,7 @@ namespace NTUEvents.Models
         public DbSet<Event> Event { get; set; }
         public DbSet<Eventreg> Eventreg { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<UserProfile> Userprofile { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
