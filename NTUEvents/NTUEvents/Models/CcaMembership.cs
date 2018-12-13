@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NTUEvents.Models
 {
-    public partial class CcaMembership
+    public class CcaMembership
     {
+        [Key]
         public int CcaMembershipId { get; set; }
         public int? UserIdCcaMemFk { get; set; }
         public int? CcaIdCcaMemFk { get; set; }

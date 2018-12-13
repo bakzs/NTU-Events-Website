@@ -63,7 +63,7 @@ namespace NTUEvents.Controllers
         {
             //Get user list
             //Filter by user and show all events by him
-            var usereventRegList = (ntueventsContext_db.Eventreg.Where(t => t.UserIdEventregFk == userId)).ToList();
+            var usereventRegList = (ntueventsContext_db.EventParticipation.Where(t => t.UserIdEventregFk == userId)).ToList();
             var usereventInfo = ntueventsContext_db.Event.Where(t => usereventRegList.FirstOrDefault(p => t.EventId == p.EventidEventregFk) != null).ToList();
             return JsonConvert.SerializeObject(usereventInfo, Formatting.Indented, new JsonSerializerSettings()
             {
@@ -83,7 +83,7 @@ namespace NTUEvents.Controllers
             //Get last count in db = event id
             //Add event reg and save to db.
             int count = ntueventsContext_db.Event.Count();
-            Eventreg eventregInfo = new Eventreg()
+            EventParticipation eventregInfo = new EventParticipation()
             {
                 EventidEventregFk = count,
                 UserIdEventregFk = userId,
@@ -91,7 +91,7 @@ namespace NTUEvents.Controllers
                 CreatedDate = DateTime.Now,
                 IsDeleted = false
             };
-            ntueventsContext_db.Eventreg.Add(eventregInfo);
+            ntueventsContext_db.EventParticipation.Add(eventregInfo);
             ntueventsContext_db.SaveChanges();
             return "Success";
         }
@@ -136,7 +136,7 @@ namespace NTUEvents.Controllers
         public string DeleteAllUserEvents(int userId)
         {
             //Get all events by the user & update isDeleted field - Soft delete
-            var usereventRegList = (ntueventsContext_db.Eventreg.Where(t => t.UserIdEventregFk == userId)).ToList();
+            var usereventRegList = (ntueventsContext_db.EventParticipation.Where(t => t.UserIdEventregFk == userId)).ToList();
             var usereventInfo = ntueventsContext_db.Event.Where(t => usereventRegList.FirstOrDefault(p => t.EventId == p.EventidEventregFk) != null).ToList();
             foreach (var userEvents in usereventInfo)
             {

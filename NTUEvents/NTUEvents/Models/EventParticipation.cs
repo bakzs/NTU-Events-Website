@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NTUEvents.Models
 {
-    public partial class Eventreg
+    public class EventParticipation
     {
-        public int EventregId { get; set; }
+        [Key]
+        public int EventParticipationId { get; set; }
         public int? EventidEventregFk { get; set; }
         public int? UserIdEventregFk { get; set; }
         public int? CreatedBy { get; set; }

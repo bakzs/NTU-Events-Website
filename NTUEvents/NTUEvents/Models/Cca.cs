@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NTUEvents.Models
 {
-    public partial class Cca
+    public class Cca
     {
         public Cca()
         {
@@ -11,6 +12,7 @@ namespace NTUEvents.Models
             Event = new HashSet<Event>();
         }
 
+        [Key]
         public int CcaId { get; set; }
         public string CcaType { get; set; }
         public string Description { get; set; }

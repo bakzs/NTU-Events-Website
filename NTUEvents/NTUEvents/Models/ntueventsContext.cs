@@ -6,6 +6,12 @@ namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
     {
+        /// <summary>
+        /// Improvements:
+        /// Property named with Id is rendered as a primary key. Refer to https://docs.microsoft.com/en-us/ef/core/modeling/keys. Remove the primary key codes below
+        /// Refer to https://docs.microsoft.com/en-us/ef/core/modeling/relational/tables. Remove the table mappings
+        /// </summary>
+
         // Removed DbContextOptions<NtuEventsContext> options due to constructor conflict
         public NtuEventsContext()
         {
@@ -15,12 +21,11 @@ namespace NTUEvents.Models
             : base(options)
         {
         }
-
-        //Var name leave it the same as Class name. 
+ 
         public DbSet<Cca> Cca { get; set; }
         public DbSet<CcaMembership> CcaMembership { get; set; }
         public DbSet<Event> Event { get; set; }
-        public DbSet<Eventreg> Eventreg { get; set; }
+        public DbSet<EventParticipation> EventParticipation { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
 
@@ -139,7 +144,7 @@ namespace NTUEvents.Models
                     .HasConstraintName("CcaId_Event_Fk");
             });
 
-            modelBuilder.Entity<Eventreg>(entity =>
+            modelBuilder.Entity<EventParticipation>(entity =>
             {
                 entity.ToTable("eventreg");
 
@@ -149,7 +154,7 @@ namespace NTUEvents.Models
                 entity.HasIndex(e => e.UserIdEventregFk)
                     .HasName("UserId_idx");
 
-                entity.Property(e => e.EventregId).HasColumnType("int(11)");
+                entity.Property(e => e.EventParticipationId).HasColumnType("int(11)");
 
                 entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
 

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NTUEvents.Models
 {
-    public partial class Event
+    public class Event
     {
         public Event()
         {
-            Eventreg = new HashSet<Eventreg>();
+            Eventreg = new HashSet<EventParticipation>();
         }
 
+        [Key]
         public int EventId { get; set; }
         public int? CcaidEventFk { get; set; }
         public string Title { get; set; }
@@ -26,6 +28,6 @@ namespace NTUEvents.Models
         public bool? IsDeleted { get; set; }
 
         public Cca CcaidEventFkNavigation { get; set; }
-        public ICollection<Eventreg> Eventreg { get; set; }
+        public ICollection<EventParticipation> Eventreg { get; set; }
     }
 }

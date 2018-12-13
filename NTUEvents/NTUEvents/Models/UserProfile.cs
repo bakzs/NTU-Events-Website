@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NTUEvents.Models
 {
@@ -10,6 +11,7 @@ namespace NTUEvents.Models
             Users = new HashSet<User>();
         }
 
+        [Key]
         public int UserProfileId { get; set; }
         public string Name { get; set; }
         public int? ContactNumber { get; set; }
