@@ -1,0 +1,40 @@
+﻿<!--Temp layout page for testing purposes-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">NTUEvents</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Home" asp-action="MainPage">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="EventPage">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="UserProfilePage">UserProfile</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-outline-info">Login/Register</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    @RenderBody()
+    <!-- Vue and Axios cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    @RenderSection("eventTbScript", false)
+</body>
+</html>

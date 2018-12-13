@@ -83,12 +83,14 @@ namespace NTUEvents.Controllers
             //Get last count in db = event id
             //Add event reg and save to db.
             int count = ntueventsContext_db.Event.Count();
-            Eventreg eventregInfo = new Eventreg();
-            eventregInfo.EventidEventregFk = count;
-            eventregInfo.UserIdEventregFk = userId;
-            eventregInfo.CreatedBy = userId;
-            eventregInfo.CreatedDate = DateTime.Now;
-            eventregInfo.IsDeleted = false;
+            Eventreg eventregInfo = new Eventreg()
+            {
+                EventidEventregFk = count,
+                UserIdEventregFk = userId,
+                CreatedBy = userId,
+                CreatedDate = DateTime.Now,
+                IsDeleted = false
+            };
             ntueventsContext_db.Eventreg.Add(eventregInfo);
             ntueventsContext_db.SaveChanges();
             return "Success";
