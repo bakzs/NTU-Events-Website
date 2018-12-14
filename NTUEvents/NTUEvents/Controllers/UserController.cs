@@ -37,7 +37,7 @@ namespace NTUEvents.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetUser(int userId)
         {
-            var user = NtuEventsContext.User.Find(userId);
+            var user = NtuEventsContext.Users.Find(userId);
             var userProfileJson = JsonConvert.SerializeObject(user);
             return Json(userProfileJson);
         }
@@ -45,7 +45,7 @@ namespace NTUEvents.Controllers
         [HttpPost("create")]
         public IActionResult CreateUser([FromBody] User UserItem)
         {
-            NtuEventsContext.User.Add(UserItem);
+            NtuEventsContext.Users.Add(UserItem);
             NtuEventsContext.SaveChanges();
             return Ok("You have successfully created your account!");
         }
@@ -53,7 +53,7 @@ namespace NTUEvents.Controllers
         [HttpPut("update/{id:int}")]
         public IActionResult UpdateUser([FromBody] User UserItem, int userId)
         {
-            var user = NtuEventsContext.User.Find(userId);
+            var user = NtuEventsContext.Users.Find(userId);
             user.Username = UserItem.Username;
             user.Password = UserItem.Password;
             user.Cca = UserItem.Cca;
@@ -65,7 +65,7 @@ namespace NTUEvents.Controllers
         [HttpDelete("delete/{id:int}")]
         public IActionResult DeleteUser(int userId)
         {
-            var user = NtuEventsContext.User.Find(userId);
+            var user = NtuEventsContext.Users.Find(userId);
             user.IsDeleted = true;
             NtuEventsContext.SaveChanges();
             return Ok("You have successfully deleted your account!");

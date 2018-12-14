@@ -37,7 +37,7 @@ namespace NTUEvents.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetUserProfile(int userProfileId)
         {
-            var userProfile = NtuEventsContext.UserProfile.Find(userProfileId);
+            var userProfile = NtuEventsContext.UserProfiles.Find(userProfileId);
             var userProfileJson = JsonConvert.SerializeObject(userProfile);
             return Json(userProfileJson);
         }
@@ -45,7 +45,7 @@ namespace NTUEvents.Controllers
         [HttpPost("create")]
         public IActionResult CreateUserProfile([FromBody] UserProfile UserProfileItem)
         {
-            NtuEventsContext.UserProfile.Add(UserProfileItem);
+            NtuEventsContext.UserProfiles.Add(UserProfileItem);
             NtuEventsContext.SaveChanges();
             return Ok("You have successfully created your user profile!");
         }
@@ -53,7 +53,7 @@ namespace NTUEvents.Controllers
         [HttpPut("update/{id:int}")]
         public IActionResult UpdateUserProfile([FromBody] UserProfile UserProfileItem, int userProfileId)
         {
-            var userProfile = NtuEventsContext.UserProfile.Find(userProfileId);
+            var userProfile = NtuEventsContext.UserProfiles.Find(userProfileId);
             userProfile.Name = UserProfileItem.Name;
             userProfile.ContactNumber = UserProfileItem.ContactNumber;
             userProfile.Email = UserProfileItem.Email;
@@ -64,7 +64,7 @@ namespace NTUEvents.Controllers
         [HttpDelete("delete/{id:int}")]
         public IActionResult DeleteUserProfile(int userProfileId)
         {
-            var userProfile = NtuEventsContext.UserProfile.Find(userProfileId);
+            var userProfile = NtuEventsContext.UserProfiles.Find(userProfileId);
             userProfile.IsDeleted = true;
             NtuEventsContext.SaveChanges();
             return Ok("You have successfully deleted your user profile!");

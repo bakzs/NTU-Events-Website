@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace NTUEvents.Models
@@ -8,21 +7,23 @@ namespace NTUEvents.Models
     {
         public Cca()
         {
-            Ccamembership = new HashSet<CcaMembership>();
-            Event = new HashSet<Event>();
+            CcaMemberships = new HashSet<CcaMembership>();
+            Events = new HashSet<Event>();
         }
 
         [Key]
         public int CcaId { get; set; }
+        [StringLength(45)]
         public string CcaType { get; set; }
+        [StringLength(1024)]
         public string Description { get; set; }
+        [StringLength(45)]
         public string Schedule { get; set; }
+        [StringLength(45)]
         public string Venue { get; set; }
+        [StringLength(45)]
         public string Contact { get; set; }
-        public int? UserIdCcaFk { get; set; }
-
-        public User UserIdCcaFkNavigation { get; set; }
-        public ICollection<CcaMembership> Ccamembership { get; set; }
-        public ICollection<Event> Event { get; set; }
+        public ICollection<CcaMembership> CcaMemberships { get; set; }
+        public ICollection<Event> Events { get; set; }
     }
 }

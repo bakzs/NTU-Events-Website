@@ -1,17 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
     {
-        /// <summary>
-        /// Improvements:
-        /// Property named with Id is rendered as a primary key. Refer to https://docs.microsoft.com/en-us/ef/core/modeling/keys. Remove the primary key codes below
-        /// Refer to https://docs.microsoft.com/en-us/ef/core/modeling/relational/tables. Remove the table mappings
-        /// </summary>
-
         // Removed DbContextOptions<NtuEventsContext> options due to constructor conflict
         public NtuEventsContext()
         {
@@ -22,37 +14,37 @@ namespace NTUEvents.Models
         {
         }
  
-        public DbSet<Cca> Cca { get; set; }
-        public DbSet<CcaMembership> CcaMembership { get; set; }
-        public DbSet<Event> Event { get; set; }
-        public DbSet<EventParticipation> EventParticipation { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<Cca> Ccas { get; set; }
+        public DbSet<CcaMembership> CcaMemberships { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<EventParticipation> EventParticipations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cca>(entity =>
             {
-                entity.ToTable("cca");
+                --- entity.ToTable("cca");
 
-                entity.HasIndex(e => e.UserIdCcaFk)
+                --- entity.HasIndex(e => e.UserIdCcaFk)
                     .HasName("UserId_idx");
 
-                entity.Property(e => e.CcaId).HasColumnType("int(11)");
+                --- entity.Property(e => e.CcaId).HasColumnType("int(11)");
 
-                entity.Property(e => e.CcaType).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.CcaType).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Contact).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Contact).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Description).HasColumnType("varchar(1024)");
+                --- entity.Property(e => e.Description).HasColumnType("varchar(1024)");
 
-                entity.Property(e => e.Schedule).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Schedule).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.UserIdCcaFk)
+                --- entity.Property(e => e.UserIdCcaFk)
                     .HasColumnName("UserId_Cca_FK")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Venue).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Venue).HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.UserIdCcaFkNavigation)
                     .WithMany(p => p.Cca)
@@ -232,6 +224,6 @@ namespace NTUEvents.Models
 
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             });
-        }
+        }*/
     }
 }
