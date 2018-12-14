@@ -138,25 +138,25 @@ namespace NTUEvents.Models
 
             modelBuilder.Entity<EventParticipation>(entity =>
             {
-                entity.ToTable("eventreg");
+                --- entity.ToTable("eventreg");
 
-                entity.HasIndex(e => e.EventidEventregFk)
+                --- entity.HasIndex(e => e.EventidEventregFk)
                     .HasName("EventId_idx");
 
-                entity.HasIndex(e => e.UserIdEventregFk)
+                --- entity.HasIndex(e => e.UserIdEventregFk)
                     .HasName("UserId_idx");
 
-                entity.Property(e => e.EventParticipationId).HasColumnType("int(11)");
+                --- entity.Property(e => e.EventParticipationId).HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
+                --- entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.EventidEventregFk)
                     .HasColumnName("Eventid_Eventreg_FK")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.IsDeleted)
+                --- entity.Property(e => e.IsDeleted)
                     .HasColumnName("isDeleted")
                     .HasColumnType("bit(1)");
 
@@ -177,26 +177,26 @@ namespace NTUEvents.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("user");
+                --- entity.ToTable("user");
 
                 entity.HasIndex(e => e.UserProfileId)
                     .HasName("UserProfileId_idx");
 
-                entity.Property(e => e.UserId).HasColumnType("int(11)");
+                --- entity.Property(e => e.UserId).HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.IsDeleted)
+               ---  entity.Property(e => e.IsDeleted)
                     .HasColumnName("isDeleted")
                     .HasColumnType("bit(1)");
 
-                entity.Property(e => e.Password).HasColumnType("varchar(128)");
+                --- entity.Property(e => e.Password).HasColumnType("varchar(128)");
 
                 entity.Property(e => e.UserProfileId)
                     .HasColumnName("UserProfileId_User_FK")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Username).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Username).HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.UserProfile)
                     .WithMany(p => p.Users)
@@ -206,23 +206,23 @@ namespace NTUEvents.Models
 
             modelBuilder.Entity<UserProfile>(entity =>
             {
-                entity.ToTable("userprofile");
+                --- entity.ToTable("userprofile");
 
-                entity.Property(e => e.UserProfileId).HasColumnType("int(11)");
+                --- entity.Property(e => e.UserProfileId).HasColumnType("int(11)");
 
-                entity.Property(e => e.ContactNumber).HasColumnType("int(11)");
+                --- entity.Property(e => e.ContactNumber).HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Email).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Email).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.IsDeleted)
+                --- entity.Property(e => e.IsDeleted)
                     .HasColumnName("isDeleted")
                     .HasColumnType("bit(1)");
 
-                entity.Property(e => e.Name).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Name).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             });
         }*/
     }

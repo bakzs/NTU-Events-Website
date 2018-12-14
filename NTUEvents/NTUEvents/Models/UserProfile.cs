@@ -13,8 +13,10 @@ namespace NTUEvents.Models
 
         [Key]
         public int UserProfileId { get; set; }
+        [StringLength(45)]
         public string Name { get; set; }
         public int? ContactNumber { get; set; }
+        [StringLength(45)]
         public string Email { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }

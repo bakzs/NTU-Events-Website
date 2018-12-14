@@ -56,8 +56,8 @@ namespace NTUEvents.Controllers
             var user = NtuEventsContext.Users.Find(userId);
             user.Username = UserItem.Username;
             user.Password = UserItem.Password;
-            user.Cca = UserItem.Cca;
-            user.CcaMembership = UserItem.CcaMembership;
+            user.Ccas = UserItem.Ccas;
+            user.CcaMemberships = UserItem.CcaMemberships;
             user.Events = UserItem.Events;
             return Ok("You have successfully updated your account!");
         }
