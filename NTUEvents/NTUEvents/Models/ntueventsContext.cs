@@ -46,7 +46,7 @@ namespace NTUEvents.Models
 
                 --- entity.Property(e => e.Venue).HasColumnType("varchar(45)");
 
-                entity.HasOne(d => d.UserIdCcaFkNavigation)
+                --- entity.HasOne(d => d.UserIdCcaFkNavigation)
                     .WithMany(p => p.Cca)
                     .HasForeignKey(d => d.UserIdCcaFk)
                     .HasConstraintName("UserId_Cca_FK");
@@ -54,7 +54,7 @@ namespace NTUEvents.Models
 
             modelBuilder.Entity<CcaMembership>(entity =>
             {
-                entity.ToTable("ccamembership");
+                --- entity.ToTable("ccamembership");
 
                 entity.HasIndex(e => e.CcaIdCcaMemFk)
                     .HasName("CcaId_idx");
@@ -62,21 +62,21 @@ namespace NTUEvents.Models
                 entity.HasIndex(e => e.UserIdCcaMemFk)
                     .HasName("UserId_idx");
 
-                entity.Property(e => e.CcaMembershipId).HasColumnType("int(11)");
+                --- entity.Property(e => e.CcaMembershipId).HasColumnType("int(11)");
 
                 entity.Property(e => e.CcaIdCcaMemFk)
                     .HasColumnName("CcaId_CcaMem_FK")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
+                --- entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
+                --- entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
 
-                entity.Property(e => e.UpdatedBy).HasColumnType("int(11)");
+                --- entity.Property(e => e.UpdatedBy).HasColumnType("int(11)");
 
-                entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserIdCcaMemFk)
                     .HasColumnName("UserId_CcaMem_FK")
@@ -95,40 +95,40 @@ namespace NTUEvents.Models
 
             modelBuilder.Entity<Event>(entity =>
             {
-                entity.ToTable("event");
+                --- entity.ToTable("event");
 
                 entity.HasIndex(e => e.CcaidEventFk)
                     .HasName("CcaId_Event_Fk_idx");
 
-                entity.Property(e => e.EventId).HasColumnType("int(11)");
+                --- entity.Property(e => e.EventId).HasColumnType("int(11)");
 
                 entity.Property(e => e.CcaidEventFk)
                     .HasColumnName("CCAId_Event_FK")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
+                --- entity.Property(e => e.CreatedBy).HasColumnType("int(11)");
 
-                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Description).HasColumnType("varchar(1024)");
+                --- entity.Property(e => e.Description).HasColumnType("varchar(1024)");
 
-                entity.Property(e => e.EndDate).HasColumnType("datetime");
+                --- entity.Property(e => e.EndDate).HasColumnType("datetime");
 
-                entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
+                --- entity.Property(e => e.IsDeleted).HasColumnType("bit(1)");
 
-                entity.Property(e => e.Quota).HasColumnType("int(11)");
+                --- entity.Property(e => e.Quota).HasColumnType("int(11)");
 
-                entity.Property(e => e.StartDate).HasColumnType("datetime");
+                --- entity.Property(e => e.StartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Title).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Title).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Type).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Type).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.UpdatedBy).HasColumnType("int(11)");
+                --- entity.Property(e => e.UpdatedBy).HasColumnType("int(11)");
 
-                entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+                --- entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Venue).HasColumnType("varchar(45)");
+                --- entity.Property(e => e.Venue).HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.CcaidEventFkNavigation)
                     .WithMany(p => p.Event)

@@ -14,9 +14,13 @@ namespace NTUEvents.Models
         [Key]
         public int EventId { get; set; }
         public int? CcaidEventFk { get; set; }
+        [StringLength(45)]
         public string Title { get; set; }
+        [StringLength(45)]
         public string Type { get; set; }
+        [StringLength(45)]
         public string Venue { get; set; }
+        [StringLength(1024)]
         public string Description { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
