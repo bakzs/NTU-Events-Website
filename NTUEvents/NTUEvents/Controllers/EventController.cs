@@ -105,7 +105,7 @@ namespace NTUEvents.Controllers
             //Update event
             Event eventItem = ntueventsContext_db.Events.Single(x => x.EventId == eventId);
             eventItem.CcaidEventFk = eventInfo.CcaidEventFk;
-            eventItem.Title = eventInfo.Title;
+            eventItem.Name = eventInfo.Name;
             eventItem.Type = eventInfo.Type;
             eventItem.Venue = eventInfo.Venue;
             eventItem.Description = eventInfo.Description;

@@ -3,23 +3,21 @@
 namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
-    {
-        // Removed DbContextOptions<NtuEventsContext> options due to constructor conflict
-        public NtuEventsContext()
-        {
-        }
-
-        public NtuEventsContext(DbContextOptions<NtuEventsContext> options)
-            : base(options)
-        {
-        }
- 
+    { 
         public DbSet<Cca> Ccas { get; set; }
         public DbSet<CcaMembership> CcaMemberships { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<EventParticipation> EventParticipations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CcaMembership>()
+             .HasKey(e => new { e.UserId, e.CcaId });
+            modelBuilder.Entity<EventParticipation>()
+             .HasKey(e => new { e.UserId, e.EventId });
+        }
 
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -224,6 +222,6 @@ namespace NTUEvents.Models
 
                 --- entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             });
-        }*/
+        } */
     }
 }
