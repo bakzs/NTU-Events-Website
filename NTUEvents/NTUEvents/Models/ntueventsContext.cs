@@ -3,13 +3,14 @@
 namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
-    { 
-        public DbSet<Cca> Ccas { get; set; }
-        public DbSet<CcaMembership> CcaMemberships { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<EventParticipation> EventParticipations { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
+    {
+        public NtuEventsContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,6 +19,13 @@ namespace NTUEvents.Models
             modelBuilder.Entity<EventParticipation>()
              .HasKey(e => new { e.UserId, e.EventId });
         }
+
+        public DbSet<Cca> Ccas { get; set; }
+        public DbSet<CcaMembership> CcaMemberships { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<EventParticipation> EventParticipations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         /*protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

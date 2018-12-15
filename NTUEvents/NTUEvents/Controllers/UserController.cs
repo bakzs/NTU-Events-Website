@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NTUEvents.Models;
 
-namespace NTUEvents.Controllers
+/*namespace NTUEvents.Controllers
 {
     /* 
         Method   Functions              Routing 
@@ -22,7 +22,7 @@ namespace NTUEvents.Controllers
      3. Generate the Json string according to the Object values
      4. Insert Json string into Description.
 
-    */
+    
 
     [Route("api/[controller]")]
     public class UserController : Controller
@@ -71,4 +71,4 @@ namespace NTUEvents.Controllers
             return Ok("You have successfully deleted your account!");
         }
     }
-}
+}*/

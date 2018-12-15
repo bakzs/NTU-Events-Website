@@ -50,3 +50,16 @@ C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\
 C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
 C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Users\Jiawei Tan\Documents\GitHub\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Home\UserProfile.g.cshtml.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.Views.dll
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\bin\Debug\netcoreapp2.1\NTUEvents.Views.pdb
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.TagHelpers.input.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.TagHelpers.output.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorCoreGenerate.cache
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Home\Event.g.cshtml.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Home\UserProfile.g.cshtml.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.RazorTargetAssemblyInfo.cs
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.Views.pdb
+C:\Users\wmlee2011\source\repos\JiaweiTan\NTU-Events-Website\.git\NTU-Events-Website\NTUEvents\NTUEvents\obj\Debug\netcoreapp2.1\NTUEvents.csproj.CopyComplete
