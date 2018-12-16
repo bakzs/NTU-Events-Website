@@ -47,7 +47,12 @@ namespace NTUEvents
                 app.UseDeveloperExceptionPage();
                 app.UseStaticFiles();
                 app.UseSession();
-                app.UseMvcWithDefaultRoute();
+                app.UseCors(builder =>
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
             }
             else
             {
@@ -55,11 +60,12 @@ namespace NTUEvents
             }
 
             app.UseHttpsRedirection();
-            //Page Routing
             app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=Home}/{action=MainPage}");
-            });
+                            {
+                            routes.MapRoute(
+                                name: "default",
+                                template: "{controller=Home}/{action=HomePage}");
+                            });
         }
     }
 }

@@ -8,21 +8,18 @@ namespace NTUEvents.Controllers
 {
     public class HomeController : Controller
     {
-        //Routing
-        //Function - Front-end navbar routing && initial routing at Startup.cs
-        public IActionResult MainPage()
+        public IActionResult HomePage()
         {
-            return View("Index");
+            return Ok("Home Page is successfully loaded!");
         }
         
-        public IActionResult EventPage()
+        /*public IActionResult EventPage()
         {
             return View("Event");
         }
-
         public IActionResult UserProfilePage()
         {
             return View("UserProfile");
-        }
+        }*/
     }
 }
