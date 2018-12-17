@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Objects;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 using Newtonsoft.Json;
 using NTUEvents.Models;
 
@@ -63,15 +64,18 @@ namespace NTUEvents.Controllers
         {
             //Get user list
             //Filter by user and show all events by him
-            var AllUserEventParticipations = (from e in NtuEventsContext_Db.EventParticipations
+            /*var AllUserEventParticipations = (from e in NtuEventsContext_Db.EventParticipations
                                 where e.UserId == userId
                                 select e)
-                                .ToList();
+                                .ToList();*/
             
-            //TODO: var AllUserEvents = NtuEventsContext_Db.Query()
-                                    .Include();
+            var AllUserEvents = NtuEventsContext_Db.EventParticipations
+                                    .Include(e => e.Event)
+                                    .Where(ep => ep.UserId == userId)
+                                    .Select(ep => ep.Event)
+                                    .ToList();
 
-            return Json(AllUserEventParticipations);
+            return Json(AllUserEvents);
 
             /*var usereventRegList = (NtuEventsContext_Db.EventParticipations.Where(t => t.UserIdEventregFk == userId)).ToList();
             var usereventInfo = NtuEventsContext_Db.Events.Where(t => usereventRegList.FirstOrDefault(p => t.EventId == p.EventidEventregFk) != null).ToList();
