@@ -34,66 +34,46 @@ namespace NTUEvents.Controllers
     //Edit the "launchUrl"
 
     [Route("api/[controller]")]
-    public class EventController : Controller
+    [ApiController]
+    public class EventController : ControllerBase
     {
-        private readonly NtuEventsContext NtuEventsContext_Db;
+        private readonly NtuEventsContext ntuEventsContext_Db;
 
-        public EventController(NtuEventsContext DbContext)
+        public EventController(NtuEventsContext ntuEventsContext)
         {
-            NtuEventsContext_Db = DbContext;
+            ntuEventsContext_Db = ntuEventsContext;
         }
 
-        [HttpGet("Events")]
-        public JsonResult GetAllEvents()
+        //GET: api/Event
+        [HttpGet]
+        public ActionResult<IEnumerable<Event>> GetAllEvents()
         {
-            //Get all non-deleted events
-            var AllEvents = (from e in NtuEventsContext_Db.Events
-                                select e)
-                                .ToList();
-            return Json(AllEvents);
-
-            /*var alleventList = NtuEventsContext_Db.Events.Where(t => t.IsDeleted == false).ToList();
-            return JsonConvert.SerializeObject(alleventList, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            });*/
+            return ntuEventsContext_Db.Events.ToList();
         }
 
+        //GET: api/Event/1
         [HttpGet("{userId}")]
-        public JsonResult GetAllUserEvents(int userId)
-        {
-            //Get user list
-            //Filter by user and show all events by him
-            /*var AllUserEventParticipations = (from e in NtuEventsContext_Db.EventParticipations
-                                where e.UserId == userId
-                                select e)
-                                .ToList();*/
+        public ActionResult<IEnumerable<Event>> GetAllUserEvents(int userId)
+        {            
+            return (from e in ntuEventsContext_Db.Events
+                        join ep in ntuEventsContext_Db.EventParticipations
+                        on e.EventId equals ep.EventId
+                        where ep.UserId == userId
+                        select e)
+                        .ToList();
             
-            var AllUserEvents = NtuEventsContext_Db.EventParticipations
-                                    .Include(e => e.Event)
-                                    .Where(ep => ep.UserId == userId)
-                                    .Select(ep => ep.Event)
-                                    .ToList();
-
-            return Json(AllUserEvents);
-
-            /*var usereventRegList = (NtuEventsContext_Db.EventParticipations.Where(t => t.UserIdEventregFk == userId)).ToList();
-            var usereventInfo = NtuEventsContext_Db.Events.Where(t => usereventRegList.FirstOrDefault(p => t.EventId == p.EventidEventregFk) != null).ToList();
-            return JsonConvert.SerializeObject(usereventInfo, Formatting.Indented, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            });*/
         }
 
+        /* 
         [HttpPost("create/{userId}")]
         public IActionResult CreateEvent([FromBody] Event eventItem, int userId)
         {
-            NtuEventsContext_Db.Events.Add(eventItem);
-            NtuEventsContext_Db.SaveChanges();
+            ntuEventsContext_Db.Events.Add(eventItem);
+            ntuEventsContext_Db.SaveChanges();
 
             return Ok("Successfully created a new event!");
 
-            /*int currentEventCount = NtuEventsContext_Db.Events.Count();
+            int currentEventCount = NtuEventsContext_Db.Events.Count();
             EventParticipation eventParticipationItem = new EventParticipation()
             {
                 EventidEventregFk = currentEventCount,
@@ -103,18 +83,18 @@ namespace NTUEvents.Controllers
                 IsDeleted = false
             };
             NtuEventsContext_Db.EventParticipations.Add(eventParticipationItem);
-            NtuEventsContext_Db.SaveChanges();*/
+            NtuEventsContext_Db.SaveChanges();
         }
 
         [HttpPut("update")]
         public IActionResult UpdateEvent([FromBody] Event eventItem)
         {
-            NtuEventsContext_Db.Events.Update(eventItem);
-            NtuEventsContext_Db.SaveChanges();
+            ntuEventsContext_Db.Events.Update(eventItem);
+            ntuEventsContext_Db.SaveChanges();
 
             return Ok("Successfully updated event!");
             
-            /*Event eventItem = NtuEventsContext_Db.Events.Single(x => x.EventId == eventId);
+            Event eventItem = NtuEventsContext_Db.Events.Single(x => x.EventId == eventId);
             eventItem.CcaidEventFk = eventInfo.CcaidEventFk;
             eventItem.Name = eventInfo.Name;
             eventItem.Type = eventInfo.Type;
@@ -126,31 +106,31 @@ namespace NTUEvents.Controllers
             eventItem.UpdatedDate = DateTime.Now;
             eventItem.UpdatedBy = eventInfo.UpdatedBy;
             NtuEventsContext_Db.SaveChanges();
-            return "Success";*/
+            return "Success";
         }
 
         [HttpPut("delete/{eventId}")]
         public IActionResult DeleteEvent(int eventId)
         {
-            var EventItem = NtuEventsContext_Db.Events.Find(eventId);
+            var EventItem = ntuEventsContext_Db.Events.Find(eventId);
             EventItem.IsDeleted = true;
-            NtuEventsContext_Db.SaveChanges();
+            ntuEventsContext_Db.SaveChanges();
 
             return Ok("Successfully deleted event!");
 
-            /*var eventItem = NtuEventsContext_Db.Events.Single(t => t.EventId == eventId);
+            var eventItem = NtuEventsContext_Db.Events.Single(t => t.EventId == eventId);
             eventItem.IsDeleted = true;
-            NtuEventsContext_Db.SaveChanges();*/
+            NtuEventsContext_Db.SaveChanges();
         }
 
-        /*[HttpPut("deleteall/{userId}")]
+        [HttpPut("deleteall/{userId}")]
         public IActionResult DeleteAllUserEvents(int userId)
         {
             
             NtuEventsContext_Db.SaveChanges();
             return Ok("Successfully deleted all user events!");
 
-            /*var usereventRegList = (NtuEventsContext_Db.EventParticipations.Where(t => t.UserIdEventregFk == userId)).ToList();
+            var usereventRegList = (NtuEventsContext_Db.EventParticipations.Where(t => t.UserIdEventregFk == userId)).ToList();
             var usereventInfo = NtuEventsContext_Db.Events.Where(t => usereventRegList.FirstOrDefault(p => t.EventId == p.EventidEventregFk) != null).ToList();
             foreach (var userEvents in usereventInfo)
             {
