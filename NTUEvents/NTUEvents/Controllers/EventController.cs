@@ -53,6 +53,21 @@ namespace NTUEvents.Controllers
 
         //GET: api/Event/1
         [HttpGet("{userId}")]
+        public ActionResult<Event> GetEvent(int userId)
+        {            
+            var eventItem = ntuEventsContext_Db.Events.Find(userId);
+
+            if (eventItem == null)
+            {
+                return NotFound();
+            }
+
+             return eventItem;
+            
+        }
+
+        //GET: api/Event/User/1
+        [HttpGet("User/{userId}")]
         public ActionResult<IEnumerable<Event>> GetAllUserEvents(int userId)
         {            
             return (from e in ntuEventsContext_Db.Events
@@ -64,29 +79,17 @@ namespace NTUEvents.Controllers
             
         }
 
-        /* 
-        [HttpPost("create/{userId}")]
-        public IActionResult CreateEvent([FromBody] Event eventItem, int userId)
+        //POST: api/Event
+        [HttpPost]
+        public ActionResult<Event> CreateEvent([FromBody] Event eventItem)
         {
             ntuEventsContext_Db.Events.Add(eventItem);
             ntuEventsContext_Db.SaveChanges();
 
-            return Ok("Successfully created a new event!");
-
-            int currentEventCount = NtuEventsContext_Db.Events.Count();
-            EventParticipation eventParticipationItem = new EventParticipation()
-            {
-                EventidEventregFk = currentEventCount,
-                UserIdEventregFk = userId,
-                CreatedBy = userId,
-                CreatedDate = DateTime.Now,
-                IsDeleted = false
-            };
-            NtuEventsContext_Db.EventParticipations.Add(eventParticipationItem);
-            NtuEventsContext_Db.SaveChanges();
+            return CreatedAtAction("GetEvent", new { eventItem.EventId }, eventItem);
         }
 
-        [HttpPut("update")]
+        /*[HttpPut("update")]
         public IActionResult UpdateEvent([FromBody] Event eventItem)
         {
             ntuEventsContext_Db.Events.Update(eventItem);
