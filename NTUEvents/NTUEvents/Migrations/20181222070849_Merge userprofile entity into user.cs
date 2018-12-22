@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NTUEvents.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Mergeuserprofileentityintouser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,6 +41,9 @@ namespace NTUEvents.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ContactNumber = table.Column<int>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true)
@@ -116,29 +119,6 @@ namespace NTUEvents.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserProfiles",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    ContactNumber = table.Column<int>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProfiles", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_UserProfiles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EventParticipations",
                 columns: table => new
                 {
@@ -192,9 +172,6 @@ namespace NTUEvents.Migrations
 
             migrationBuilder.DropTable(
                 name: "EventParticipations");
-
-            migrationBuilder.DropTable(
-                name: "UserProfiles");
 
             migrationBuilder.DropTable(
                 name: "Events");

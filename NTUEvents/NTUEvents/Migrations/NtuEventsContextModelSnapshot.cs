@@ -156,25 +156,6 @@ namespace NTUEvents.Migrations
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CreatedDate");
-
-                    b.Property<bool?>("IsDeleted");
-
-                    b.Property<string>("Password");
-
-                    b.Property<DateTime?>("UpdatedDate");
-
-                    b.Property<string>("Username");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("NTUEvents.Models.UserProfile", b =>
-                {
-                    b.Property<int>("UserId");
-
                     b.Property<int?>("ContactNumber");
 
                     b.Property<DateTime?>("CreatedDate");
@@ -185,11 +166,15 @@ namespace NTUEvents.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Password");
+
                     b.Property<DateTime?>("UpdatedDate");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserProfiles");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("NTUEvents.Models.CcaMembership", b =>
@@ -222,14 +207,6 @@ namespace NTUEvents.Migrations
 
                     b.HasOne("NTUEvents.Models.User", "User")
                         .WithMany("EventParticipations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("NTUEvents.Models.UserProfile", b =>
-                {
-                    b.HasOne("NTUEvents.Models.User", "User")
-                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -1,15 +1,9 @@
 INSERT INTO users
 	VALUES
-		(1, 'TestUsername1', 'TestPassword1', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0'),
-		(2, 'TestUsername2', 'TestPassword2', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0'),
-		(3, 'TestUsername3', 'TestPassword3', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0');
-
-INSERT INTO userprofiles
-	VALUES
-		(1, 'TestName1', 12345678, 'TestEmail1', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0'),
-        (2, 'TestName2', 12345678, 'TestEmail2', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0'),
-        (3, 'TestName3', 12345678, 'TestEmail3', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0');
-
+		(1, 'TestUsername1', 'TestPassword1', 'TestName1', 12345678, 'TestEmail1', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0'),
+		(2, 'TestUsername2', 'TestPassword2', 'TestName2', 12345678, 'TestEmail2', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0'),
+		(3, 'TestUsername3', 'TestPassword3', 'TestName3', 12345678, 'TestEmail3', '2018-12-15 00:00:00', '2018-12-16 00:00:00', b'0');
+        
 INSERT INTO ccas
 	VALUES
 		(1, 'TestCca1', 'TestType1', 'TestDescription1', 'TestSchedule1', 'TestVenue1', 'TestContact1', 1, '2018-12-15 00:00:00', 1, '2018-12-16 00:00:00', 1, '2018-12-17 00:00:00', b'0'),

@@ -12,14 +12,5 @@ namespace NTUEvents.Controllers
         {
             return Ok("Home Page is successfully loaded!");
         }
-        
-        /*public IActionResult EventPage()
-        {
-            return View("Event");
-        }
-        public IActionResult UserProfilePage()
-        {
-            return View("UserProfile");
-        }*/
     }
 }

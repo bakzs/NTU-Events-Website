@@ -17,6 +17,9 @@ namespace NTUEvents.Models
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
+        public int? ContactNumber { get; set; }
+        public string Email { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool? IsDeleted { get; set; }
