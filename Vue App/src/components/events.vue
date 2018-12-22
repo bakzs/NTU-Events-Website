@@ -1,14 +1,6 @@
 <template>
   <div class="events">
-    <div class="container">
-    </div>
+    <h1>This is events</h1>
   </div>
 </template>
-
-<script>
-</script>
-
-<style>
-</style>
-
 
