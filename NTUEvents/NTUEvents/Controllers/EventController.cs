@@ -40,31 +40,33 @@ namespace NTUEvents.Controllers
         }
 
         //GET: api/Event
-        //Add soft delete
         [HttpGet]
         public ActionResult<IEnumerable<Event>> GetAllEvents()
         {
-            return ntuEventsContext_Db.Events.ToList();
+            return Json(from e in ntuEventsContext_Db.Events
+                        where e.IsDeleted.Equals(false)
+                        select e);
         }
 
         //GET: api/Event/1
-        //Add soft delete
         [HttpGet("{eventId}")]
         public ActionResult<Event> GetEvent(int eventId)
-        {            
-            var eventItem = ntuEventsContext_Db.Events.Find(eventId);
+        {
+            var eventItem = from e in ntuEventsContext_Db.Events
+                            where e.EventId == eventId
+                            && e.IsDeleted.Equals(false)
+                            select e;
 
-            if (eventItem == null)
+            if (!eventItem.Any())
             {
                 return NotFound();
             }
 
-             return eventItem;
+             return Json(eventItem);
             
         }
 
         //GET: api/Event/User/1
-        //Add soft delete
         [HttpGet("User/{userId}")]
         public ActionResult<IEnumerable<Event>> GetAllUserEvents(int userId)
         {
@@ -99,10 +101,9 @@ namespace NTUEvents.Controllers
         }
 
         //SOFT DELETE
-        //PUT: api/Event/delete/1
-        //Add delete details
-        [HttpPut("delete/{eventId}")]
-        public ActionResult<Event> DeleteEvent(int eventId)
+        //PUT: api/Event/delete/1/1
+        [HttpPut("delete/{eventId}/{userId}")]
+        public ActionResult<Event> DeleteEvent(int eventId, int userId)
         {
             var eventItem = ntuEventsContext_Db.Events.Find(eventId);
 
@@ -111,6 +112,8 @@ namespace NTUEvents.Controllers
                 return NotFound();
             }
 
+            eventItem.DeletedBy = userId;
+            eventItem.DeletedDate = DateTime.Today;
             eventItem.IsDeleted = true;
             ntuEventsContext_Db.SaveChanges();
 
@@ -119,13 +122,12 @@ namespace NTUEvents.Controllers
 
         //SOFT DELETE
         //PUT: api/Event/deleteall/1
-        //Add delete details
         [HttpPut("deleteall/{userId}")]
         public ActionResult<IEnumerable<Event>> DeleteAllUserEvents(int userId)
         {
             var eventParticipationItems = GetAllUserEventParticipationsHelper(userId);
 
-            if (eventParticipationItems == null)
+            if (!eventParticipationItems.Any())
             {
                 return NotFound();
             }
@@ -133,6 +135,8 @@ namespace NTUEvents.Controllers
             foreach (var eventParticipationItem in eventParticipationItems)
             {
                 var eventParticipationLoopItem = ntuEventsContext_Db.EventParticipations.Find(eventParticipationItem.UserId, eventParticipationItem.EventId);
+                eventParticipationLoopItem.DeletedBy = userId;
+                eventParticipationLoopItem.DeletedDate = DateTime.Today;
                 eventParticipationLoopItem.IsDeleted = true;
             }
 
@@ -148,6 +152,7 @@ namespace NTUEvents.Controllers
                     join ep in ntuEventsContext_Db.EventParticipations
                     on e.EventId equals ep.EventId
                     where ep.UserId == userId
+                    && ep.IsDeleted.Equals(false)
                     select e)
                         .ToList();
 
@@ -158,6 +163,7 @@ namespace NTUEvents.Controllers
         {
             return (from ep in ntuEventsContext_Db.EventParticipations
                     where ep.UserId == userId
+                    && ep.IsDeleted.Equals(false)
                     select ep)
                         .ToList();
 
