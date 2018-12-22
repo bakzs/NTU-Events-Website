@@ -9,8 +9,8 @@ using NTUEvents.Models;
 namespace NTUEvents.Migrations
 {
     [DbContext(typeof(NtuEventsContext))]
-    [Migration("20181222070849_Merge userprofile entity into user")]
-    partial class Mergeuserprofileentityintouser
+    [Migration("20181222075909_Add database properties to User entity")]
+    partial class AdddatabasepropertiestoUserentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -160,7 +160,13 @@ namespace NTUEvents.Migrations
 
                     b.Property<int?>("ContactNumber");
 
+                    b.Property<int?>("CreatedBy");
+
                     b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedDate");
 
                     b.Property<string>("Email");
 
@@ -169,6 +175,8 @@ namespace NTUEvents.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("Password");
+
+                    b.Property<int?>("UpdatedBy");
 
                     b.Property<DateTime?>("UpdatedDate");
 

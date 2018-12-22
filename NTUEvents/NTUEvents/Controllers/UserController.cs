@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 using NTUEvents.Models;
 
-/*namespace NTUEvents.Controllers
+namespace NTUEvents.Controllers
 {
     /* 
         Method   Functions              Routing 
@@ -21,54 +25,80 @@ using NTUEvents.Models;
      2. For [Put] method, type "Content-type" into Key and "application/json" into Value
      3. Generate the Json string according to the Object values
      4. Insert Json string into Description.
-
+     */
     
-
     [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
-        private readonly NtuEventsContext NtuEventsContext;
+        private readonly NtuEventsContext ntuEventsContext_Db;
 
-        public UserController(NtuEventsContext DbContext)
+        public UserController(NtuEventsContext ntuEventsContext)
         {
-            NtuEventsContext = DbContext;
+            ntuEventsContext_Db = ntuEventsContext;
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetUser(int userId)
+        //GET: api/User/1
+        [HttpGet("{userId}")]
+        public ActionResult<User> GetUser(int userId)
         {
-            var user = NtuEventsContext.Users.Find(userId);
-            var userProfileJson = JsonConvert.SerializeObject(user);
-            return Json(userProfileJson);
+            var userItem = from u in ntuEventsContext_Db.Users
+                           where u.UserId == userId
+                            && u.IsDeleted.Equals(false)
+                            select u;
+
+            if (!userItem.Any())
+            {
+                return NotFound();
+            }
+
+            return Json(userItem);
         }
 
-        [HttpPost("create")]
-        public IActionResult CreateUser([FromBody] User UserItem)
+        //POST: api/User
+        //TODO: Generate CreateDate property at client
+        [HttpPost]
+        public ActionResult<User> CreateUser([FromBody] User userItem)
         {
-            NtuEventsContext.Users.Add(UserItem);
-            NtuEventsContext.SaveChanges();
-            return Ok("You have successfully created your account!");
+            ntuEventsContext_Db.Users.Add(userItem);
+            ntuEventsContext_Db.SaveChanges();
+
+            return CreatedAtAction("GetUser", new { userItem.UserId }, userItem);
         }
 
-        [HttpPut("update/{id:int}")]
-        public IActionResult UpdateUser([FromBody] User UserItem, int userId)
+        //PUT: api/User/1
+        [HttpPut("{userId}")]
+        public ActionResult UpdateUser(int userId, [FromBody] User userItem)
         {
-            var user = NtuEventsContext.Users.Find(userId);
-            user.Username = UserItem.Username;
-            user.Password = UserItem.Password;
-            user.Ccas = UserItem.Ccas;
-            user.CcaMemberships = UserItem.CcaMemberships;
-            user.Events = UserItem.Events;
-            return Ok("You have successfully updated your account!");
+            if (userId != userItem.UserId)
+            {
+                return BadRequest();
+            }
+
+            ntuEventsContext_Db.Entry(userItem).State = EntityState.Modified;
+            ntuEventsContext_Db.SaveChanges();
+
+            return NoContent();
         }
 
-        [HttpDelete("delete/{id:int}")]
-        public IActionResult DeleteUser(int userId)
+        //SOFT DELETE
+        //PUT: api/User/delete/1
+        [HttpPut("delete/{userId}")]
+        public ActionResult<User> DeleteUser(int userId)
         {
-            var user = NtuEventsContext.Users.Find(userId);
-            user.IsDeleted = true;
-            NtuEventsContext.SaveChanges();
-            return Ok("You have successfully deleted your account!");
+            var userItem = ntuEventsContext_Db.Users.Find(userId);
+
+            if (userItem == null)
+            {
+                return NotFound();
+            }
+
+            userItem.DeletedBy = userId;
+            userItem.DeletedDate = DateTime.Today;
+            userItem.IsDeleted = true;
+            ntuEventsContext_Db.SaveChanges();
+
+            return userItem;
         }
     }
-}*/
+}

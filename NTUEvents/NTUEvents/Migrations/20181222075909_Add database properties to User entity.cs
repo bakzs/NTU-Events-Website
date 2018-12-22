@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NTUEvents.Migrations
 {
-    public partial class Mergeuserprofileentityintouser : Migration
+    public partial class AdddatabasepropertiestoUserentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,8 +44,12 @@ namespace NTUEvents.Migrations
                     Name = table.Column<string>(nullable: true),
                     ContactNumber = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<int>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
+                    DeletedBy = table.Column<int>(nullable: true),
+                    DeletedDate = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>

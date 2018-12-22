@@ -158,7 +158,13 @@ namespace NTUEvents.Migrations
 
                     b.Property<int?>("ContactNumber");
 
+                    b.Property<int?>("CreatedBy");
+
                     b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedDate");
 
                     b.Property<string>("Email");
 
@@ -167,6 +173,8 @@ namespace NTUEvents.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("Password");
+
+                    b.Property<int?>("UpdatedBy");
 
                     b.Property<DateTime?>("UpdatedDate");
 
