@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Data;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTUEvents.Models;
@@ -13,21 +7,14 @@ using NTUEvents.Models;
 namespace NTUEvents.Controllers
 {
     /* 
-        Method   Functions              Routing 
-     1. [Get]    GetUser         - api/user/{userId}
-     3. [Post]   CreateUser      - api/user/create/
-     4. [Put]    UpdateUser      - api/user/update/{userId}
-     5. [Delete] DeleteUser      - api/user/delete/{userId}
-
-     *Note
-     0. Do not key incorrect userId. 
-     1. When testing on postman, select the correct method
-     2. For [Put] method, type "Content-type" into Key and "application/json" into Value
-     3. Generate the Json string according to the Object values
-     4. Insert Json string into Description.
+        Method   Function          Routing 
+     1. [Get]    GetUser         - api/users/{userId}
+     2. [Post]   CreateUser      - api/users
+     3. [Put]    UpdateUser      - api/users/{userId}
+     4. [Put]    DeleteUser      - api/users/{userId}/delete
      */
-    
-    [Route("api/[controller]")]
+
+    [Route("api/users")]
     [ApiController]
     public class UserController : Controller
     {
@@ -38,7 +25,7 @@ namespace NTUEvents.Controllers
             ntuEventsContext_Db = ntuEventsContext;
         }
 
-        //GET: api/User/1
+        //GET: api/users/{userId}
         [HttpGet("{userId}")]
         public ActionResult<User> GetUser(int userId)
         {
@@ -55,7 +42,7 @@ namespace NTUEvents.Controllers
             return Json(userItem);
         }
 
-        //POST: api/User
+        //POST: api/users
         //TODO: Generate CreateDate property at client
         [HttpPost]
         public ActionResult<User> CreateUser([FromBody] User userItem)
@@ -66,7 +53,7 @@ namespace NTUEvents.Controllers
             return CreatedAtAction("GetUser", new { userItem.UserId }, userItem);
         }
 
-        //PUT: api/User/1
+        //PUT: api/users/{userId}
         [HttpPut("{userId}")]
         public ActionResult UpdateUser(int userId, [FromBody] User userItem)
         {
@@ -82,8 +69,8 @@ namespace NTUEvents.Controllers
         }
 
         //SOFT DELETE
-        //PUT: api/User/delete/1
-        [HttpPut("delete/{userId}")]
+        //PUT: api/users/{userId}/delete
+        [HttpPut("{userId}/delete")]
         public ActionResult<User> DeleteUser(int userId)
         {
             var userItem = ntuEventsContext_Db.Users.Find(userId);

@@ -1,34 +1,24 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTUEvents.Models;
 
 namespace NTUEvents.Controllers
 {
-    /*
+     /*
         Method   Functions              Routing 
      1. [Get]    GetAllEvents         - api/events 
-     2. [Get]    GetUserEvents        - api/events/{id}
-     3. [Post]   CreateNewEvent       - api/events/create/{userId}
-     4. [Put]    UpdateNewEvent       - api/events/update/{eventId}
-     5. [Put]    DeleteEvent          - api/events/delete/{eventId}
-     6. [Put]    DeleteAllUserEvents  - api/events/deleteall/{userId}
+     2. [Get]    GetEvent             - api/events/{eventId}
+     3. [Get]    GetAllUserEvents     - api/events/user/{userId}
+     4. [Post]   CreateEvent          - api/events
+     5. [Put]    UpdateEvent          - api/events/{eventId}
+     6. [Put]    DeleteEvent          - api/events/{eventId}/delete/{userId}
+     7. [Put]    DeleteAllUserEvents  - api/events/{userId}/deleteall
+     */
 
-     Note
-     0. Do not key incorrect userid/eventid. 
-     1. When testing on postman, select the correct method
-     2. For [Put] method, type "Content-type" into Key and "application/json" into Value
-     3. Generate the Json string according to the Object values
-     4. Insert Json string into Description. */   
-
-    [Route("api/[controller]")]
+    [Route("api/events")]
     [ApiController]
     public class EventController : Controller
     {
@@ -39,7 +29,7 @@ namespace NTUEvents.Controllers
             ntuEventsContext_Db = ntuEventsContext;
         }
 
-        //GET: api/Event
+        //GET: api/events
         [HttpGet]
         public ActionResult<IEnumerable<Event>> GetAllEvents()
         {
@@ -48,7 +38,7 @@ namespace NTUEvents.Controllers
                         select e);
         }
 
-        //GET: api/Event/1
+        //GET: api/events/{eventId}
         [HttpGet("{eventId}")]
         public ActionResult<Event> GetEvent(int eventId)
         {
@@ -65,14 +55,14 @@ namespace NTUEvents.Controllers
              return Json(eventItem);
         }
 
-        //GET: api/Event/User/1
-        [HttpGet("User/{userId}")]
+        //GET: api/events/user/{userId}
+        [HttpGet("user/{userId}")]
         public ActionResult<IEnumerable<Event>> GetAllUserEvents(int userId)
         {
             return Json(GetAllUserEventsHelper(userId));
         }
 
-        //POST: api/Event
+        //POST: api/events
         [HttpPost]
         public ActionResult<Event> CreateEvent([FromBody] Event eventItem)
         {
@@ -82,7 +72,7 @@ namespace NTUEvents.Controllers
             return CreatedAtAction("GetEvent", new { eventItem.EventId }, eventItem);
         }
 
-        //PUT: api/Event/1
+        //PUT: api/events/{eventId}
         //Generate UpdatedBy and UpdatedDate in client
         [HttpPut("{eventId}")]
         public ActionResult UpdateEvent(int eventId, [FromBody] Event eventItem)
@@ -99,8 +89,8 @@ namespace NTUEvents.Controllers
         }
 
         //SOFT DELETE
-        //PUT: api/Event/delete/1/1
-        [HttpPut("delete/{eventId}/{userId}")]
+        //PUT: api/events/{eventId}/delete/{userId}
+        [HttpPut("{eventId}/delete/{userId}")]
         public ActionResult<Event> DeleteEvent(int eventId, int userId)
         {
             var eventItem = ntuEventsContext_Db.Events.Find(eventId);
@@ -119,8 +109,8 @@ namespace NTUEvents.Controllers
         }
 
         //SOFT DELETE
-        //PUT: api/Event/deleteall/1
-        [HttpPut("deleteall/{userId}")]
+        //PUT: api/events/{userId}/deleteall
+        [HttpPut("{userId}/deleteall")]
         public ActionResult<IEnumerable<Event>> DeleteAllUserEvents(int userId)
         {
             var eventParticipationItems = GetAllUserEventParticipationsHelper(userId);
