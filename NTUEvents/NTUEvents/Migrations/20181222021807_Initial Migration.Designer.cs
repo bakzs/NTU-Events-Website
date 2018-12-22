@@ -9,8 +9,8 @@ using NTUEvents.Models;
 namespace NTUEvents.Migrations
 {
     [DbContext(typeof(NtuEventsContext))]
-    [Migration("20181215083453_ntueventsmigration")]
-    partial class ntueventsmigration
+    [Migration("20181222021807_Initial Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
