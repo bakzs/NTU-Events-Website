@@ -63,7 +63,6 @@ namespace NTUEvents.Controllers
             }
 
              return Json(eventItem);
-            
         }
 
         //GET: api/Event/User/1
@@ -71,8 +70,6 @@ namespace NTUEvents.Controllers
         public ActionResult<IEnumerable<Event>> GetAllUserEvents(int userId)
         {
             return Json(GetAllUserEventsHelper(userId));
-
-
         }
 
         //POST: api/Event
@@ -86,6 +83,7 @@ namespace NTUEvents.Controllers
         }
 
         //PUT: api/Event/1
+        //Generate UpdatedBy and UpdatedDate in client
         [HttpPut("{eventId}")]
         public ActionResult UpdateEvent(int eventId, [FromBody] Event eventItem)
         {
@@ -142,7 +140,6 @@ namespace NTUEvents.Controllers
 
             ntuEventsContext_Db.SaveChanges();
             return Json(eventParticipationItems);
-
         }
 
         //Helper method
@@ -155,7 +152,6 @@ namespace NTUEvents.Controllers
                     && ep.IsDeleted.Equals(false)
                     select e)
                         .ToList();
-
         }
 
         //Helper method
@@ -166,7 +162,6 @@ namespace NTUEvents.Controllers
                     && ep.IsDeleted.Equals(false)
                     select ep)
                         .ToList();
-
         }
     }
 }
