@@ -32,14 +32,3 @@
     <router-view/>
   </div>
 </template>
-
-<script>
-import MainPage from "./components/main";
-
-export default {
-  name: "app",
-  components: {
-    MainPage
-  }
-};
-</script>

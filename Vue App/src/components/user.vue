@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <div class="container">
+   <b-container>
       <br>
       <h3>User Profile</h3>
       <br>
@@ -22,7 +22,7 @@
         <b-button type="submit" variant="success" style="display:none;">Save</b-button>
         <b-button type="submit" variant="danger">Delete Account</b-button>
       </b-form>
-    </div>
+   </b-container>
   </div>
 </template>
 

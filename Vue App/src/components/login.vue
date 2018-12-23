@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <br>
-    <div class="container">
+   <b-container>
       <h3>Login</h3>
       <br />
       <b-form>
@@ -14,6 +14,6 @@
         <br />
         <b-button type="submit" variant="success">Submit</b-button>
       </b-form>
-    </div>
+   </b-container>
   </div>
 </template>
