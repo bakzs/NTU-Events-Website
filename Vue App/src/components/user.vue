@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <div class="container">
+   <b-container>
       <br>
       <h3>User Profile</h3>
       <br>
@@ -32,7 +32,7 @@
         <b-button type="submit" variant="success" v-if=!isEditable>Save</b-button>
         <b-button variant="danger" v-if=isEditable>Delete Account</b-button>
       </b-form>
-    </div>
+   </b-container>
   </div>
 </template>
 

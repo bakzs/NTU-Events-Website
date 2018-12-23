@@ -1,39 +1,43 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import router from 'vue-router'
 import Main from './components/main.vue'
 import Event from './components/events.vue'
 import Login from './components/login.vue'
 import Register from './components/register.vue'
 import User from './components/user.vue'
 
-Vue.use(Router)
+Vue.use(router)
 
-export default new Router({
-  routes: [
-    {
-      path: '/' && '/main',
+export default new router({
+  routes: [{
+      name: 'default',
+      path: '',
+      component: Main
+    }, {
       name: 'main',
+      path: '/main',
       component: Main
     },
     {
-      path: '/events',
       name: 'events',
+      path: '/events/:userId',
       component: Event
     },
     {
-      path: '/user',
       name: 'user',
-      component: User        
+      path: '/user',
+      component: User
     },
     {
-      path: '/login',
       name: 'login',
-      component: Login        
+      path: '/login',
+      component: Login
     },
     {
-      path: '/register',
       name: 'register',
-      component: Register        
+      path: '/register',
+      component: Register
     }
-  ]
+  ],
+  mode: 'history'
 })

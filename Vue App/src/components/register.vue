@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <div class="container">
+   <b-container>
       <br>
       <h3>Register New Account</h3>
       <br>
@@ -23,6 +23,6 @@
         <br />
         <b-button type="submit" variant="success">Register</b-button>
       </b-form>
-    </div>
+   </b-container>
   </div>
 </template>
