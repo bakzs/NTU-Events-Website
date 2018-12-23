@@ -13,6 +13,15 @@
       >Add New Event</b-button>
       <br>
       <br>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        fade
+        variant="success"
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >{{dismissMessage}}</b-alert>
+      <br>
       <b-table responsive bordered hover :items="items" :fields="fields">
         <template slot="index" slot-scope="data">{{data.index + 1}}</template>
         <template slot="actions" slot-scope="data">
@@ -155,12 +164,20 @@ export default {
       items: [],
       eventInfo: {},
       addEventState: false,
-      editEventState: false
+      editEventState: false,
+      dismissMessage: "",
+      dismissSecs: 2,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     };
   },
   methods: {
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
     loadAddModal() {
       this.addEventState = true;
+      this.editEventState = false;
       this.eventInfo = {};
     },
     closeModal() {
@@ -170,6 +187,7 @@ export default {
       this.eventInfo = {};
     },
     showEventInfo(item) {
+      this.addEventState = false;
       this.editEventState = true;
       this.eventInfo = item;
     },
@@ -177,10 +195,10 @@ export default {
       localStorage.setItem("dltEventId", id);
     },
     addEditEvent(eventInfo) {
-        /* Temp fix*/
-        eventInfo.createdBy = this.$route.params.userId;
-        eventInfo.createdDate = new Date().toLocaleString();
-        eventInfo.isDeleted = 0;
+      /* Temp fix*/
+      eventInfo.createdBy = this.$route.params.userId;
+      eventInfo.createdDate = new Date().toLocaleString();
+      eventInfo.isDeleted = 0;
 
       if (this.addEventState == true) {
         eventInfo.updatedDate = new Date().toLocaleString();
@@ -191,6 +209,7 @@ export default {
           data: eventInfo,
           config: { headers: { "Content-Type": "application/json" } }
         });
+        this.dismissMessage = "Event " + eventInfo.name + " created.";
       } else if (this.editEventState == true) {
         axios({
           method: "put",
@@ -198,9 +217,11 @@ export default {
           data: eventInfo,
           config: { headers: { "Content-Type": "application/json" } }
         });
+        this.dismissMessage = "Event: " + eventInfo.name + " updated.";
       }
       //Clear Modal
       this.eventInfo = {};
+      this.dismissCountDown = this.dismissSecs;
     },
     deleteEvent() {
       var id = localStorage.getItem("dltEventId");
