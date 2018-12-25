@@ -54,7 +54,7 @@
         @cancel="closeModal()"
         @close="closeModal()"
         size="lg"
-        title="Add/Edit Event"
+        :title="modalTitle"
       >
         <b-container fluid>
           <div class="row">
@@ -121,6 +121,7 @@
 
 <script>
 import axios from "axios";
+import moment from "moment";
 
 export default {
   data() {
@@ -163,6 +164,7 @@ export default {
       },
       items: [],
       eventInfo: {},
+      modalTitle: "",
       addEventState: false,
       editEventState: false,
       dismissMessage: "",
@@ -179,6 +181,7 @@ export default {
       this.addEventState = true;
       this.editEventState = false;
       this.eventInfo = {};
+      this.modalTitle = "Add Event";
     },
     closeModal() {
       //Reset States & Clear Modal Bindings
@@ -190,6 +193,7 @@ export default {
       this.addEventState = false;
       this.editEventState = true;
       this.eventInfo = item;
+      this.modalTitle = "Edit Event";
     },
     saveEventId(id) {
       localStorage.setItem("dltEventId", id);
@@ -233,6 +237,8 @@ export default {
           "/delete/" +
           this.$route.params.userId
       });
+      this.dismissMessage = "Event deleted.";
+      this.dismissCountDown = this.dismissSecs;
     }
   },
   mounted() {
@@ -242,6 +248,11 @@ export default {
         "https://localhost:44362/api/events/user/" + this.$route.params.userId
     }).then(response => {
       this.items = response.data;
+      //Update array and format date time using MomentJs
+      for (let item of this.items) {
+        item.startDate = moment(new Date(item.startDate)).format("YYYY-MM-DD HH:mm");
+        item.endDate = moment(new Date(item.endDate)).format("YYYY-MM-DD HH:mm");
+      }
     });
   }
 };
