@@ -199,6 +199,16 @@ export default {
       localStorage.setItem("dltEventId", id);
     },
     addEditEvent(eventInfo) {
+      //Save formatted datetime
+      var startDate = eventInfo.startDate;
+      var endDate = eventInfo.endDate;
+
+      // Revert datetime to ISO 8601 format */
+      // Added 8 hours to offset UTC time */
+      // Another solution will be to include moment-timezone
+      // but it's unnecessary as we are working with 1 timezone only
+      eventInfo.startDate = moment(eventInfo.startDate).add(8,'hours').toISOString();
+      eventInfo.endDate = moment(eventInfo.endDate).add(8,'hours').toISOString();
       /* Temp fix*/
       eventInfo.createdBy = this.$route.params.userId;
       eventInfo.createdDate = new Date().toLocaleString();
@@ -223,6 +233,11 @@ export default {
         });
         this.dismissMessage = "Event: " + eventInfo.name + " updated.";
       }
+
+      //Update ISO8601 datetime back to formatted datetime.
+      eventInfo.startDate = startDate;
+      eventInfo.endDate = endDate;
+      
       //Clear Modal
       this.eventInfo = {};
       this.dismissCountDown = this.dismissSecs;
@@ -250,8 +265,12 @@ export default {
       this.items = response.data;
       //Update array and format date time using MomentJs
       for (let item of this.items) {
-        item.startDate = moment(new Date(item.startDate)).format("YYYY-MM-DD HH:mm");
-        item.endDate = moment(new Date(item.endDate)).format("YYYY-MM-DD HH:mm");
+        item.startDate = moment(new Date(item.startDate)).format(
+          "YYYY-MM-DD HH:mm"
+        );
+        item.endDate = moment(new Date(item.endDate)).format(
+          "YYYY-MM-DD HH:mm"
+        );
       }
     });
   }
