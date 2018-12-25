@@ -71,13 +71,13 @@
           </div>
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <b-form-group id="startDateLbl" label="Start Date" label-for="startDateTbx">
-                <b-form-input id="startDateTbx" v-model="eventInfo.startDate" type="text"></b-form-input>
+              <b-form-group id="startDateLbl" label="Start Date" label-for="startDateDp">
+                <date-picker id="startDateDp" v-model="eventInfo.startDate" :config="options"></date-picker>
               </b-form-group>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <b-form-group id="endDateLbl" label="End Date" label-for="endDateTbx">
-                <b-form-input id="endDateTbx" v-model="eventInfo.endDate" type="text"></b-form-input>
+              <b-form-group id="endDateLbl" label="End Date" label-for="endDateDp">
+                <date-picker id="endDateDp" v-model="eventInfo.endDate" :config="options"></date-picker>
               </b-form-group>
             </div>
           </div>
@@ -123,9 +123,42 @@
 import axios from "axios";
 import moment from "moment";
 
+// Import datepicker component
+import datePicker from "vue-bootstrap-datetimepicker";
+
+// Import JQuery
+import jQuery from "jquery";
+
+// Using font-awesome 5 icons
+import "@fortawesome/fontawesome-free/css/fontawesome.css";
+import "@fortawesome/fontawesome-free/css/regular.css";
+import "@fortawesome/fontawesome-free/css/solid.css";
+
+jQuery.extend(true, jQuery.fn.datetimepicker.defaults, {
+  icons: {
+    time: "far fa-clock",
+    date: "far fa-calendar",
+    up: "fas fa-arrow-up",
+    down: "fas fa-arrow-down",
+    previous: "fas fa-chevron-left",
+    next: "fas fa-chevron-right",
+    today: "fas fa-calendar-check",
+    clear: "far fa-trash-alt",
+    close: "far fa-times-circle"
+  }
+});
+
 export default {
+  components: {
+    datePicker
+  },
   data() {
     return {
+      date: new Date(),
+      options: {
+        format: "YYYY-MM-DD HH:mm",
+        useCurrent: false
+      },
       fields: {
         index: "#",
         name: {
@@ -204,11 +237,9 @@ export default {
       var endDate = eventInfo.endDate;
 
       // Revert datetime to ISO 8601 format */
-      // Added 8 hours to offset UTC time */
-      // Another solution will be to include moment-timezone
-      // but it's unnecessary as we are working with 1 timezone only
-      eventInfo.startDate = moment(eventInfo.startDate).add(8,'hours').toISOString();
-      eventInfo.endDate = moment(eventInfo.endDate).add(8,'hours').toISOString();
+      eventInfo.startDate = moment(eventInfo.startDate).toISOString();
+      eventInfo.endDate = moment(eventInfo.endDate).toISOString();
+
       /* Temp fix*/
       eventInfo.createdBy = this.$route.params.userId;
       eventInfo.createdDate = new Date().toLocaleString();
@@ -237,7 +268,7 @@ export default {
       //Update ISO8601 datetime back to formatted datetime.
       eventInfo.startDate = startDate;
       eventInfo.endDate = endDate;
-      
+
       //Clear Modal
       this.eventInfo = {};
       this.dismissCountDown = this.dismissSecs;
