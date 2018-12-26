@@ -53,8 +53,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      //Dummy userId
-      userId: 1,
+      userId: this.userId,
       items: [],
       userEditForm: null,
       passwordChangeForm: {
@@ -70,6 +69,7 @@ export default {
     }
   },
   methods: {
+    props: ['userId'],
     onEdit(){
       this.$data.canBeEdited = false;
     },
@@ -91,7 +91,7 @@ export default {
       this.$data.userEditForm[0].UpdatedDate = new Date().toLocaleString();
 
       axios
-        .put('https://localhost:44362/api/users/' + this.$data.userId, this.$data.userEditForm[0])
+        .put('https://localhost:44362/api/users/' + this.userId, this.$data.userEditForm[0])
         .then(response => {
           console.log(response);
         })
@@ -114,7 +114,7 @@ export default {
       this.$data.userEditForm[0].UpdatedDate = new Date().toLocaleString();
 
       axios
-        .put('https://localhost:44362/api/users/' + this.$data.userId, this.$data.userEditForm[0])
+        .put('https://localhost:44362/api/users/' + this.userId, this.$data.userEditForm[0])
         .then(response => {
           console.log(response);
         })
@@ -128,7 +128,7 @@ export default {
   },
   mounted(){
       axios
-        .get('https://localhost:44362/api/users/' + this.$data.userId)
+        .get('https://localhost:44362/api/users/' + this.userId)
         .then(
           response => {
             this.$data.userEditForm = response.data;
@@ -140,7 +140,8 @@ export default {
             console.log(error);
           }
         )
-  }
+  },
+
 }
 </script>
 

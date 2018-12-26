@@ -25,8 +25,9 @@ export default new router({
     },
     {
       name: 'user',
-      path: '/user',
-      component: User
+      path: '/user/:userId',
+      component: User,
+      props:true
     },
     {
       name: 'login',
