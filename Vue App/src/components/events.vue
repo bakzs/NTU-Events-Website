@@ -72,12 +72,22 @@
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
               <b-form-group id="startDateLbl" label="Start Date" label-for="startDateDp">
-                <date-picker id="startDateDp" v-model="eventInfo.startDate" :config="options"></date-picker>
+                <date-picker
+                  id="startDateDp"
+                  v-model="eventInfo.startDate"
+                  @dp-change="onStartChange"
+                  :config="options.start"
+                ></date-picker>
               </b-form-group>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
               <b-form-group id="endDateLbl" label="End Date" label-for="endDateDp">
-                <date-picker id="endDateDp" v-model="eventInfo.endDate" :config="options"></date-picker>
+                <date-picker
+                  id="endDateDp"
+                  v-model="eventInfo.endDate"
+                  @dp-change="onEndChange"
+                  :config="options.end"
+                ></date-picker>
               </b-form-group>
             </div>
           </div>
@@ -120,44 +130,28 @@
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
-
-// Import datepicker component
 import datePicker from "vue-bootstrap-datetimepicker";
-
-// Import JQuery
-import jQuery from "jquery";
-
-// Using font-awesome 5 icons
-import "@fortawesome/fontawesome-free/css/fontawesome.css";
-import "@fortawesome/fontawesome-free/css/regular.css";
-import "@fortawesome/fontawesome-free/css/solid.css";
-
-jQuery.extend(true, jQuery.fn.datetimepicker.defaults, {
-  icons: {
-    time: "far fa-clock",
-    date: "far fa-calendar",
-    up: "fas fa-arrow-up",
-    down: "fas fa-arrow-down",
-    previous: "fas fa-chevron-left",
-    next: "fas fa-chevron-right",
-    today: "fas fa-calendar-check",
-    clear: "far fa-trash-alt",
-    close: "far fa-times-circle"
-  }
-});
-
 export default {
-  components: {
-    datePicker
-  },
   data() {
     return {
       date: new Date(),
       options: {
         format: "YYYY-MM-DD HH:mm",
-        useCurrent: false
+        useCurrent: false,
+        start: {
+          format: "YYYY-MM-DD HH:mm",
+          useCurrent: false,
+          showClear: true,
+          showClose: true,
+          maxDate: false
+        },
+        end: {
+          format: "YYYY-MM-DD HH:mm",
+          useCurrent: false,
+          showClear: true,
+          showClose: true,
+          minDate: false
+        }
       },
       fields: {
         index: "#",
@@ -207,6 +201,14 @@ export default {
     };
   },
   methods: {
+    onStartChange(e) {
+      //console.log("onStartChange", e.date);
+      this.$set(this.options.end, "minDate", e.date || null);
+    },
+    onEndChange(e) {
+      //console.log("onEndChange", e.date);
+      this.$set(this.options.start, "maxDate", e.date || null);
+    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -215,6 +217,7 @@ export default {
       this.editEventState = false;
       this.eventInfo = {};
       this.modalTitle = "Add Event";
+      this.options.showClear = true;
     },
     closeModal() {
       //Reset States & Clear Modal Bindings
@@ -237,8 +240,8 @@ export default {
       var endDate = eventInfo.endDate;
 
       // Revert datetime to ISO 8601 format */
-      eventInfo.startDate = moment(eventInfo.startDate).toISOString();
-      eventInfo.endDate = moment(eventInfo.endDate).toISOString();
+      eventInfo.startDate = this.$moment(eventInfo.startDate).toISOString();
+      eventInfo.endDate = this.$moment(eventInfo.endDate).toISOString();
 
       /* Temp fix*/
       eventInfo.createdBy = this.$route.params.userId;
@@ -248,7 +251,7 @@ export default {
       if (this.addEventState == true) {
         eventInfo.updatedDate = new Date().toLocaleString();
         eventInfo.updatedBy = this.$route.params.userId;
-        axios({
+        this.axios({
           method: "post",
           url: "https://localhost:44362/api/events/",
           data: eventInfo,
@@ -256,7 +259,7 @@ export default {
         });
         this.dismissMessage = "Event " + eventInfo.name + " created.";
       } else if (this.editEventState == true) {
-        axios({
+        this.axios({
           method: "put",
           url: "https://localhost:44362/api/events/" + eventInfo.eventId,
           data: eventInfo,
@@ -275,7 +278,7 @@ export default {
     },
     deleteEvent() {
       var id = localStorage.getItem("dltEventId");
-      axios({
+      this.axios({
         method: "put",
         url:
           "https://localhost:44362/api/events/" +
@@ -288,7 +291,7 @@ export default {
     }
   },
   mounted() {
-    axios({
+    this.axios({
       method: "get",
       url:
         "https://localhost:44362/api/events/user/" + this.$route.params.userId
@@ -296,10 +299,10 @@ export default {
       this.items = response.data;
       //Update array and format date time using MomentJs
       for (let item of this.items) {
-        item.startDate = moment(new Date(item.startDate)).format(
+        item.startDate = this.$moment(new Date(item.startDate)).format(
           "YYYY-MM-DD HH:mm"
         );
-        item.endDate = moment(new Date(item.endDate)).format(
+        item.endDate = this.$moment(new Date(item.endDate)).format(
           "YYYY-MM-DD HH:mm"
         );
       }
