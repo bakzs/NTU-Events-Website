@@ -50,7 +50,7 @@
       >Are you sure that you want to delete this item?</b-modal>
       <b-modal
         id="addEditModal"
-        @ok="addEditEvent(eventInfo)"
+        @ok.prevent="addEditEvent(eventInfo, $event)"
         @cancel="closeModal()"
         @close="closeModal()"
         size="lg"
@@ -59,68 +59,176 @@
         <b-container fluid>
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <b-form-group id="eventNameLbl" label="Event Name" label-for="eventNameTbx">
-                <b-form-input id="eventNameTbx" v-model="eventInfo.name" type="text"></b-form-input>
+              <b-form-group
+                id="eventNameLbl"
+                :invalid-feedback="errors.first('Event Name')"
+                :state="!errors.has('Event Name')"
+                label="Event Name"
+                label-for="eventNameTbx"
+              >
+                <b-form-input
+                  id="eventNameTbx"
+                  v-model="eventInfo.name"
+                  :state="!errors.has('Event Name')"
+                  v-validate="'required|min:10|max:40'"
+                  type="text"
+                  name="Event Name"
+                ></b-form-input>
               </b-form-group>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <b-form-group id="eventTypeLbl" label="Event Type" label-for="eventTypeTbx">
-                <b-form-input id="eventTypeTbx" v-model="eventInfo.type" type="text"></b-form-input>
+              <b-form-group
+                id="eventTypeLbl"
+                :invalid-feedback="errors.first('Event Type')"
+                :state="!errors.has('Event Type')"
+                label="Event Type"
+                label-for="eventTypeTbx"
+              >
+                <b-form-input
+                  id="eventTypeTbx"
+                  v-model="eventInfo.type"
+                  :state="!errors.has('Event Type')"
+                  v-validate="'required|min:5|max:20'"
+                  type="text"
+                  name="Event Type"
+                ></b-form-input>
               </b-form-group>
             </div>
           </div>
           <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <b-form-group id="startDateLbl" label="Start Date" label-for="startDateDp">
+              <b-form-group
+                id="startDateLbl"
+                :invalid-feedback="errors.first('Start Date')"
+                :state="!errors.has('Start Date')"
+                label="Start Date"
+                label-for="startDateDp"
+              >
                 <date-picker
                   id="startDateDp"
                   v-model="eventInfo.startDate"
+                  :state="!errors.has('Start Date')"
+                  v-validate="'required|date_format:YYYY-MM-DD HH:mm'"
+                  :class="this.$validator.errors.has('Start Date') ? 'is-invalid' : 'is-valid'"
                   @dp-change="onStartChange"
                   :config="options.start"
+                  name="Start Date"
                 ></date-picker>
               </b-form-group>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-              <b-form-group id="endDateLbl" label="End Date" label-for="endDateDp">
+              <b-form-group
+                id="endDateLbl"
+                :invalid-feedback="errors.first('End Date')"
+                :state="!errors.has('End Date')"
+                label="End Date"
+                label-for="endDateDp"
+              >
                 <date-picker
                   id="endDateDp"
                   v-model="eventInfo.endDate"
+                  :state="!errors.has('End Date')"
+                  v-validate="'required|date_format:YYYY-MM-DD HH:mm'"
+                  :class="this.$validator.errors.has('End Date') ? 'is-invalid' : 'is-valid'"
                   @dp-change="onEndChange"
                   :config="options.end"
+                  name="End Date"
                 ></date-picker>
               </b-form-group>
             </div>
           </div>
           <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-              <b-form-group id="contactLbl" label="Contact" label-for="contactTbx">
-                <b-form-input id="contactTbx" v-model="eventInfo.contact" type="text"></b-form-input>
+              <b-form-group
+                id="contactLbl"
+                :invalid-feedback="errors.first('Contact')"
+                :state="!errors.has('Contact')"
+                label="Contact"
+                label-for="contactTbx"
+              >
+                <b-form-input
+                  id="contactTbx"
+                  v-model="eventInfo.contact"
+                  :state="!errors.has('Contact')"
+                  v-validate="'required|numeric|min:8|max:8'"
+                  type="text"
+                  name="Contact"
+                ></b-form-input>
               </b-form-group>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-              <b-form-group id="ccaLbl" label="CCA" label-for="ccaTbx">
-                <b-form-input id="ccaTbx" v-model="eventInfo.ccaId" type="text"></b-form-input>
+              <b-form-group
+                id="ccaLbl"
+                :invalid-feedback="errors.first('CCA')"
+                :state="!errors.has('CCA')"
+                label="CCA"
+                label-for="ccaTbx"
+              >
+                <b-form-input
+                  id="ccaTbx"
+                  v-model="eventInfo.ccaId"
+                  :state="!errors.has('CCA')"
+                  v-validate="'required|alpha|min:5|max:20'"
+                  type="text"
+                  name="CCA"
+                ></b-form-input>
               </b-form-group>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-              <b-form-group id="venueLbl" label="Venue" label-for="venueTbx">
-                <b-form-input id="venueTbx" v-model="eventInfo.venue" type="text"></b-form-input>
+              <b-form-group
+                id="venueLbl"
+                :invalid-feedback="errors.first('Venue')"
+                :state="!errors.has('Venue')"
+                label="Venue"
+                label-for="venueTbx"
+              >
+                <b-form-input
+                  id="venueTbx"
+                  v-model="eventInfo.venue"
+                  :state="!errors.has('Venue')"
+                  v-validate="'required|min:5|max:30'"
+                  type="text"
+                  name="Venue"
+                ></b-form-input>
               </b-form-group>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-              <b-form-group id="quotaLbl" label="Quota" label-for="quotaTbx">
-                <b-form-input id="quotaTbx" v-model="eventInfo.quota" type="text"></b-form-input>
+              <b-form-group
+                id="quotaLbl"
+                :invalid-feedback="errors.first('Quota')"
+                :state="!errors.has('Quota')"
+                label="Quota"
+                label-for="quotaTbx"
+              >
+                <b-form-input
+                  id="quotaTbx"
+                  v-model="eventInfo.quota"
+                  :state="!errors.has('Quota')"
+                  v-validate="'required|numeric|min:1|max:4'"
+                  type="text"
+                  name="Quota"
+                ></b-form-input>
               </b-form-group>
             </div>
           </div>
-          <b-form-group id="descriptionLbl" label="Description" label-for="descriptionTbx">
+          <b-form-group
+            id="descriptionLbl"
+            label="Description"
+            :invalid-feedback="errors.first('Description')"
+            :state="!errors.has('Description')"
+            label-for="descriptionTbx"
+          >
             <!--Bootstrap-vue Bug -> "Can't type in b-form-textarea" (Changed to bootstrap) -->
             <textarea
               class="form-control"
-              v-model="eventInfo.description"
               id="descriptionTbx"
+              v-model="eventInfo.description"
+              :state="!errors.has('Description')"
+              v-validate="'required|min:20|max:120'"
+              :class="this.$validator.errors.has('Description') ? 'is-invalid' : 'is-valid'"
               rows="3"
               style="resize:none;"
+              name="Description"
             ></textarea>
           </b-form-group>
         </b-container>
@@ -130,7 +238,6 @@
 </template>
 
 <script>
-import datePicker from "vue-bootstrap-datetimepicker";
 export default {
   data() {
     return {
@@ -218,6 +325,7 @@ export default {
       this.eventInfo = {};
       this.modalTitle = "Add Event";
       this.options.showClear = true;
+      this.$validator.reset();
     },
     closeModal() {
       //Reset States & Clear Modal Bindings
@@ -235,46 +343,66 @@ export default {
       localStorage.setItem("dltEventId", id);
     },
     addEditEvent(eventInfo) {
-      //Save formatted datetime
-      var startDate = eventInfo.startDate;
-      var endDate = eventInfo.endDate;
-
-      // Revert datetime to ISO 8601 format */
-      eventInfo.startDate = this.$moment(eventInfo.startDate).toISOString();
-      eventInfo.endDate = this.$moment(eventInfo.endDate).toISOString();
-
-      /* Temp fix*/
-      eventInfo.createdBy = this.$route.params.userId;
-      eventInfo.createdDate = new Date().toLocaleString();
-      eventInfo.isDeleted = 0;
-
-      if (this.addEventState == true) {
-        eventInfo.updatedDate = new Date().toLocaleString();
-        eventInfo.updatedBy = this.$route.params.userId;
-        this.axios({
-          method: "post",
-          url: "https://localhost:44362/api/events/",
-          data: eventInfo,
-          config: { headers: { "Content-Type": "application/json" } }
-        });
-        this.dismissMessage = "Event " + eventInfo.name + " created.";
-      } else if (this.editEventState == true) {
-        this.axios({
-          method: "put",
-          url: "https://localhost:44362/api/events/" + eventInfo.eventId,
-          data: eventInfo,
-          config: { headers: { "Content-Type": "application/json" } }
-        });
-        this.dismissMessage = "Event: " + eventInfo.name + " updated.";
-      }
-
-      //Update ISO8601 datetime back to formatted datetime.
-      eventInfo.startDate = startDate;
-      eventInfo.endDate = endDate;
-
-      //Clear Modal
-      this.eventInfo = {};
-      this.dismissCountDown = this.dismissSecs;
+      this.$validator
+        .validateAll()
+        .then(result => {
+          if (!result) {
+            //Validation failed
+            //Prevent the modal from closing
+            event.preventDefault();
+          } else {
+            //Save formatted datetime
+            var startDate = eventInfo.startDate;
+            var endDate = eventInfo.endDate;
+            // Revert datetime to ISO 8601 format */
+            eventInfo.startDate = this.$moment(
+              eventInfo.startDate
+            ).toISOString();
+            eventInfo.endDate = this.$moment(eventInfo.endDate).toISOString();
+            /* Temp fix*/
+            eventInfo.createdBy = this.$route.params.userId;
+            eventInfo.createdDate = new Date().toLocaleString();
+            eventInfo.isDeleted = 0;
+            if (this.addEventState == true) {
+              eventInfo.updatedDate = new Date().toLocaleString();
+              eventInfo.updatedBy = this.$route.params.userId;
+              this.axios
+                .post("https://localhost:44362/api/events/", eventInfo)
+                .then(response => {
+                  console.log(response);
+                });
+              /*
+              this.axios({
+                method: "post",
+                url: "https://localhost:44362/api/events/",
+                data: eventInfo,
+                config: { headers: { "Content-Type": "application/json" } }
+              });*/
+              this.dismissMessage = "Event " + eventInfo.name + " created.";
+            } else if (this.editEventState == true) {
+              this.axios
+                .put("https://localhost:44362/api/events/", eventInfo)
+                .then(response => {
+                  console.log(response);
+                });
+              //Old Axios Code
+              /*this.axios({
+                method: "put",
+                url: "https://localhost:44362/api/events/" + eventInfo.eventId,
+                data: eventInfo,
+                config: { headers: { "Content-Type": "application/json" } }
+              });*/
+              this.dismissMessage = "Event: " + eventInfo.name + " updated.";
+            }
+            //Update ISO8601 datetime back to formatted datetime.
+            eventInfo.startDate = startDate;
+            eventInfo.endDate = endDate;
+            //Clear Modal
+            this.eventInfo = {};
+            this.dismissCountDown = this.dismissSecs;
+          }
+        })
+        .catch(() => {});
     },
     deleteEvent() {
       var id = localStorage.getItem("dltEventId");
@@ -291,7 +419,24 @@ export default {
     }
   },
   mounted() {
-    this.axios({
+    this.axios
+      .get(
+        "https://localhost:44362/api/events/user/" + this.$route.params.userId
+      )
+      .then(response => {
+        this.items = response.data;
+        //Update array and format date time using MomentJs
+        for (let item of this.items) {
+          item.startDate = this.$moment(new Date(item.startDate)).format(
+            "YYYY-MM-DD HH:mm"
+          );
+          item.endDate = this.$moment(new Date(item.endDate)).format(
+            "YYYY-MM-DD HH:mm"
+          );
+        }
+      });
+    //Old Axios code
+    /* this.axios({
       method: "get",
       url:
         "https://localhost:44362/api/events/user/" + this.$route.params.userId
@@ -306,7 +451,7 @@ export default {
           "YYYY-MM-DD HH:mm"
         );
       }
-    });
+    });*/
   }
 };
 </script>
