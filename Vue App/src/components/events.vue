@@ -53,9 +53,10 @@
         ref="addEditModal"
         @ok.prevent="addEditEvent(eventInfo, $event)"
         @cancel="closeModal()"
-        @close="closeModal()"
         size="lg"
         :title="modalTitle"
+        :no-close-on-backdrop="true"
+        :no-close-on-esc="true"
       >
         <b-container fluid>
           <div class="row validateInputs">
@@ -111,7 +112,6 @@
                   :state="!errors.has('Start Date')"
                   v-validate="'required|date_format:YYYY-MM-DD HH:mm'"
                   :class="this.$validator.errors.has('Start Date') ? 'is-invalid' : 'is-valid'"
-                  @dp-change="onStartChange"
                   :config="options.start"
                   name="Start Date"
                 ></date-picker>
@@ -131,7 +131,6 @@
                   :state="!errors.has('End Date')"
                   v-validate="'required|date_format:YYYY-MM-DD HH:mm'"
                   :class="this.$validator.errors.has('End Date') ? 'is-invalid' : 'is-valid'"
-                  @dp-change="onEndChange"
                   :config="options.end"
                   name="End Date"
                 ></date-picker>
@@ -220,18 +219,17 @@
             :state="!errors.has('Description')"
             label-for="descriptionTbx"
           >
-            <!--Bootstrap-vue Bug -> "Can't type in b-form-textarea" (Changed to bootstrap) -->
-            <textarea
-              class="form-control"
+            <b-form-textarea
               id="descriptionTbx"
               v-model="eventInfo.description"
               :state="!errors.has('Description')"
               v-validate="'required|min:20|max:120'"
               :class="this.$validator.errors.has('Description') ? 'is-invalid' : 'is-valid'"
-              rows="3"
-              style="resize:none;"
+              :rows="3"
+              :max-rows="6"
+              :no-resize="true"
               name="Description"
-            ></textarea>
+            ></b-form-textarea>
           </b-form-group>
         </b-container>
       </b-modal>
@@ -311,14 +309,6 @@ export default {
     };
   },
   methods: {
-    onStartChange(e) {
-      //console.log("onStartChange", e.date);
-      this.$set(this.options.end, "minDate", e.date || null);
-    },
-    onEndChange(e) {
-      //console.log("onEndChange", e.date);
-      this.$set(this.options.start, "maxDate", e.date || null);
-    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -328,6 +318,11 @@ export default {
       this.eventInfo = {};
       this.modalTitle = "Add Event";
       this.options.showClear = true;
+      //JQuery remove all 'is-valid' in div child
+      //Workaround for Validation Messages Displaying on Page Load
+      $("#addEditModal")
+        .find("*")
+        .removeClass("is-valid");
     },
     closeModal() {
       //Reset States & Clear Modal Bindings
@@ -377,7 +372,7 @@ export default {
               });
               this.dismissMessage = "Event " + eventInfo.name + " created.";
             } else if (this.editEventState == true) {
-              axios({
+              this.axios({
                 method: "put",
                 url: "https://localhost:44362/api/events/" + eventInfo.eventId,
                 data: eventInfo,

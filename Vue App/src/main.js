@@ -28,7 +28,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueAxios,axios);
 Vue.use(require('vue-moment'));
 Vue.use(datePicker);
-Vue.use(VeeValidate, { fieldsBagName: "formFields" });
+Vue.use(VeeValidate, { fieldsBagName: "formFields"}, );
 
 //Setting the icons for the datetimepicker
 jQuery.extend(true, jQuery.fn.datetimepicker.defaults, {
@@ -44,7 +44,7 @@ jQuery.extend(true, jQuery.fn.datetimepicker.defaults, {
     close: "far fa-times-circle"
   }
 });
-
+window.$ = window.jQuery = require("jquery");
 new Vue({
   router,
   render: h => h(App)
