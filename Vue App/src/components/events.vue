@@ -50,6 +50,7 @@
       >Are you sure that you want to delete this item?</b-modal>
       <b-modal
         id="addEditModal"
+        ref="addEditModal"
         @ok.prevent="addEditEvent(eventInfo, $event)"
         @cancel="closeModal()"
         @close="closeModal()"
@@ -57,7 +58,7 @@
         :title="modalTitle"
       >
         <b-container fluid>
-          <div class="row">
+          <div class="row validateInputs">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
               <b-form-group
                 id="eventNameLbl"
@@ -164,11 +165,12 @@
                 label="CCA"
                 label-for="ccaTbx"
               >
+                <!-- Remove validation atm |alpha|min:5|max:20 -->
                 <b-form-input
                   id="ccaTbx"
                   v-model="eventInfo.ccaId"
                   :state="!errors.has('CCA')"
-                  v-validate="'required|alpha|min:5|max:20'"
+                  v-validate="'required'"
                   type="text"
                   name="CCA"
                 ></b-form-input>
@@ -238,6 +240,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -325,7 +328,6 @@ export default {
       this.eventInfo = {};
       this.modalTitle = "Add Event";
       this.options.showClear = true;
-      this.$validator.reset();
     },
     closeModal() {
       //Reset States & Clear Modal Bindings
@@ -366,40 +368,33 @@ export default {
             if (this.addEventState == true) {
               eventInfo.updatedDate = new Date().toLocaleString();
               eventInfo.updatedBy = this.$route.params.userId;
-              this.axios
-                .post("https://localhost:44362/api/events/", eventInfo)
-                .then(response => {
-                  console.log(response);
-                });
-              /*
+
               this.axios({
                 method: "post",
                 url: "https://localhost:44362/api/events/",
                 data: eventInfo,
                 config: { headers: { "Content-Type": "application/json" } }
-              });*/
+              });
               this.dismissMessage = "Event " + eventInfo.name + " created.";
             } else if (this.editEventState == true) {
-              this.axios
-                .put("https://localhost:44362/api/events/", eventInfo)
-                .then(response => {
-                  console.log(response);
-                });
-              //Old Axios Code
-              /*this.axios({
+              axios({
                 method: "put",
                 url: "https://localhost:44362/api/events/" + eventInfo.eventId,
                 data: eventInfo,
                 config: { headers: { "Content-Type": "application/json" } }
-              });*/
+              }).catch(error => {
+                this.errors.push(error.response.data.errors);
+              });
               this.dismissMessage = "Event: " + eventInfo.name + " updated.";
             }
             //Update ISO8601 datetime back to formatted datetime.
             eventInfo.startDate = startDate;
             eventInfo.endDate = endDate;
-            //Clear Modal
+            //Clear Modal, Hide Modal, Reset Validation
             this.eventInfo = {};
             this.dismissCountDown = this.dismissSecs;
+            this.$refs.addEditModal.hide();
+            this.$validator.reset();
           }
         })
         .catch(() => {});
@@ -419,24 +414,7 @@ export default {
     }
   },
   mounted() {
-    this.axios
-      .get(
-        "https://localhost:44362/api/events/user/" + this.$route.params.userId
-      )
-      .then(response => {
-        this.items = response.data;
-        //Update array and format date time using MomentJs
-        for (let item of this.items) {
-          item.startDate = this.$moment(new Date(item.startDate)).format(
-            "YYYY-MM-DD HH:mm"
-          );
-          item.endDate = this.$moment(new Date(item.endDate)).format(
-            "YYYY-MM-DD HH:mm"
-          );
-        }
-      });
-    //Old Axios code
-    /* this.axios({
+    this.axios({
       method: "get",
       url:
         "https://localhost:44362/api/events/user/" + this.$route.params.userId
@@ -451,7 +429,7 @@ export default {
           "YYYY-MM-DD HH:mm"
         );
       }
-    });*/
+    });
   }
 };
 </script>
