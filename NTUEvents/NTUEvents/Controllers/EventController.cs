@@ -38,6 +38,16 @@ namespace NTUEvents.Controllers
                         select e);
         }
 
+        //GET: api/events/createdby/{userId}
+        [HttpGet("createdby/{userId}")]
+        public ActionResult<IEnumerable<Event>> GetAllUserCreatedEvents(int userId)
+        {
+            return (from e in ntuEventsContext_Db.Events
+                        where e.CreatedBy.Equals(userId)
+                        && e.IsDeleted.Equals(false)
+                        select e).ToList();
+        }
+
         //GET: api/events/{eventId}
         [HttpGet("{eventId}")]
         public ActionResult<Event> GetEvent(int eventId)
