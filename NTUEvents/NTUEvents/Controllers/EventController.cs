@@ -140,6 +140,7 @@ namespace NTUEvents.Controllers
                     on e.EventId equals ep.EventId
                     where ep.UserId == userId
                     && ep.IsDeleted.Equals(false)
+                    && e.IsDeleted.Equals(false)
                     select e)
                         .ToList();
         }
