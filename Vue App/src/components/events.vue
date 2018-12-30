@@ -29,16 +29,18 @@
             v-b-modal.addEditModal
             type="submit"
             variant="outline-warning"
-            class="btn-block"
+            class="btn-block fas fa-edit"
             v-on:click.prevent.stop="showEventInfo(data.item)"
-          >Edit</b-button>
+          ></b-button>
+          <br>
+          <br>
           <b-button
             v-b-modal.deleteModal
             type="submit"
-            variant="outline-danger"
+            variant="outline-danger fas fa-trash"
             class="btn-block"
             v-on:click.prevent.stop="saveEventId(data.item.eventId)"
-          >Delete</b-button>
+          ></b-button>
         </template>
       </b-table>
       <br>
@@ -52,7 +54,7 @@
         id="addEditModal"
         ref="addEditModal"
         @ok.prevent="addEditEvent(eventInfo, $event)"
-        @cancel="closeModal()"
+        @hide="closeModal()"
         size="lg"
         :title="modalTitle"
         :no-close-on-backdrop="true"
@@ -164,15 +166,14 @@
                 label="CCA"
                 label-for="ccaTbx"
               >
-                <!-- Remove validation atm |alpha|min:5|max:20 -->
-                <b-form-input
+                <b-form-select
                   id="ccaTbx"
                   v-model="eventInfo.ccaId"
+                  :options="ccaList"
                   :state="!errors.has('CCA')"
                   v-validate="'required'"
-                  type="text"
                   name="CCA"
-                ></b-form-input>
+                ></b-form-select>
               </b-form-group>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -238,7 +239,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -262,7 +262,9 @@ export default {
         }
       },
       fields: {
-        index: "#",
+        index: {
+          label: "#"
+        },
         name: {
           key: "name",
           sortable: true
@@ -272,8 +274,7 @@ export default {
           sortable: true
         },
         description: {
-          key: "description",
-          sortable: true
+          key: "description"
         },
         startDate: {
           key: "startDate",
@@ -295,9 +296,17 @@ export default {
           key: "contact",
           sortable: false
         },
-        actions: "Actions"
+        cca: {
+          key: "ccaname",
+          label: "CCA"
+        },
+        actions: {
+          label: "Actions"
+        }
       },
       items: [],
+      ccaList: [],
+      selected: null,
       eventInfo: {},
       modalTitle: "",
       addEventState: false,
@@ -305,7 +314,9 @@ export default {
       dismissMessage: "",
       dismissSecs: 2,
       dismissCountDown: 0,
-      showDismissibleAlert: false
+      showDismissibleAlert: false,
+      okButtonClicked: false,
+      detailShow: false
     };
   },
   methods: {
@@ -325,10 +336,18 @@ export default {
         .removeClass("is-valid");
     },
     closeModal() {
-      //Reset States & Clear Modal Bindings
-      this.addEventState = false;
-      this.editEventState = false;
-      this.eventInfo = {};
+      //Three ways to close the modal -- 1. Ok button, 2. Cancel Button, 3. Header - Cross Button
+      //For 1 --> Don't do anything
+      //For 2 && 3 --> Reset States & Clear Modal Bindings & Clear validation
+      if (this.okButtonClicked == true) {
+        this.okButtonClicked = false;
+      } else {
+        //Reset States & Clear Modal Bindings & Clear validation
+        this.addEventState = false;
+        this.editEventState = false;
+        this.eventInfo = {};
+        this.$validator.reset();
+      }
     },
     showEventInfo(item) {
       this.addEventState = false;
@@ -340,6 +359,7 @@ export default {
       localStorage.setItem("dltEventId", id);
     },
     addEditEvent(eventInfo) {
+      this.okButtonClicked = true;
       this.$validator
         .validateAll()
         .then(result => {
@@ -369,6 +389,9 @@ export default {
                 url: "https://localhost:44362/api/events/",
                 data: eventInfo,
                 config: { headers: { "Content-Type": "application/json" } }
+              }).catch(error => {
+                alert("Error encountered while creating events");
+                console.log(error);
               });
               this.dismissMessage = "Event " + eventInfo.name + " created.";
             } else if (this.editEventState == true) {
@@ -378,7 +401,8 @@ export default {
                 data: eventInfo,
                 config: { headers: { "Content-Type": "application/json" } }
               }).catch(error => {
-                this.errors.push(error.response.data.errors);
+                alert("Error encountered while editing event");
+                console.log(error);
               });
               this.dismissMessage = "Event: " + eventInfo.name + " updated.";
             }
@@ -403,29 +427,155 @@ export default {
           id +
           "/delete/" +
           this.$route.params.userId
+      }).catch(error => {
+        alert("Error encountered while deleting event");
+        console.log(error);
       });
       this.dismissMessage = "Event deleted.";
       this.dismissCountDown = this.dismissSecs;
     }
   },
   mounted() {
+    //Get list of CCA participation
+    this.axios({
+      method: "get",
+      url: "https://localhost:44362/api/ccas"
+    })
+      .then(response => {
+        for (var i = 0; i < response.data.length; i++) {
+          var item = {
+            value: response.data[i].ccaId,
+            text: response.data[i].name
+          };
+          this.ccaList.push(item);
+        }
+      })
+      .catch(error => {
+        alert("Error encountered while retrieving cca");
+        console.log(error);
+      });
+
+    //Get user events list
     this.axios({
       method: "get",
       url:
-        "https://localhost:44362/api/events/user/" + this.$route.params.userId
-    }).then(response => {
-      this.items = response.data;
-      //Update array and format date time using MomentJs
-      for (let item of this.items) {
-        item.startDate = this.$moment(new Date(item.startDate)).format(
-          "YYYY-MM-DD HH:mm"
-        );
-        item.endDate = this.$moment(new Date(item.endDate)).format(
-          "YYYY-MM-DD HH:mm"
-        );
-      }
-    });
+        "https://localhost:44362/api/events/createdby/" +
+        this.$route.params.userId
+    })
+      .then(response => {
+        this.items = response.data;
+        //Update array and format date time using MomentJs
+        for (let item of this.items) {
+          item.startDate = this.$moment(new Date(item.startDate)).format(
+            "YYYY-MM-DD HH:mm"
+          );
+          item.endDate = this.$moment(new Date(item.endDate)).format(
+            "YYYY-MM-DD HH:mm"
+          );
+          for (var i = 0; i < this.ccaList.length; i++) {
+            if (item.ccaId == this.ccaList[i].value) {
+              Object.assign(item, { ccaname: this.ccaList[i].text });
+            }
+          }
+        }
+      })
+      .catch(error => {
+        alert("Error encountered while retrieving events");
+        console.log(error);
+      });
   }
 };
 </script>
+<style>
+/* Default table properties */
+table {
+  font: normal 12px arial;
+  width: 100%;
+}
 
+td {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Media Queries - Make table become cards*/
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Remove hover */
+  .table-hover tbody tr:hover td,
+  .table-hover tbody tr:hover {
+    background-color: #ffffff;
+  }
+  /*Shift table headers columns away from view*/
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /*Set the table row spacing and border*/
+  tr {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 30px;
+  }
+
+  td {
+    position: relative;
+  }
+
+  /*Adjust and set the position of the table title*/
+  td:before {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-weight: bold;
+  }
+
+  .table th,
+  .table td {
+    padding: 1.5rem !important;
+  }
+
+  td:nth-of-type(1):before {
+    content: "#";
+  }
+  td:nth-of-type(2):before {
+    content: "Name";
+  }
+  td:nth-of-type(3):before {
+    content: "Type";
+  }
+  td:nth-of-type(4):before {
+    content: "Description";
+  }
+  td:nth-of-type(5):before {
+    content: "Start Date";
+  }
+  td:nth-of-type(6):before {
+    content: "End Date";
+  }
+  td:nth-of-type(7):before {
+    content: "Venue";
+  }
+  td:nth-of-type(8):before {
+    content: "Quota";
+  }
+  td:nth-of-type(9):before {
+    content: "Contact";
+  }
+  td:nth-of-type(10):before {
+    content: "CCA";
+  }
+}
+</style>
