@@ -99,7 +99,7 @@ namespace NTUEvents.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime?>("EndDate");
 
                     b.Property<bool?>("IsDeleted");
 
@@ -107,7 +107,7 @@ namespace NTUEvents.Migrations
 
                     b.Property<int?>("Quota");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime?>("StartDate");
 
                     b.Property<string>("Type");
 

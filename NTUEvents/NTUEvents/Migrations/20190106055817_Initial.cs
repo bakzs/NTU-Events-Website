@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NTUEvents.Migrations
 {
-    public partial class AdddatabasepropertiestoUserentity : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,8 +67,8 @@ namespace NTUEvents.Migrations
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: true),
+                    EndDate = table.Column<DateTime>(nullable: true),
                     Venue = table.Column<string>(nullable: true),
                     Quota = table.Column<int>(nullable: true),
                     Contact = table.Column<string>(nullable: true),

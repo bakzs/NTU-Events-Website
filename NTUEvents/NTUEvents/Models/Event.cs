@@ -19,8 +19,8 @@ namespace NTUEvents.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Venue { get; set; }
         public int? Quota { get; set; }
         public string Contact { get; set; }

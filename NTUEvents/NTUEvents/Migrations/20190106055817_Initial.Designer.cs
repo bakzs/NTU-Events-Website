@@ -9,8 +9,8 @@ using NTUEvents.Models;
 namespace NTUEvents.Migrations
 {
     [DbContext(typeof(NtuEventsContext))]
-    [Migration("20181222075909_Add database properties to User entity")]
-    partial class AdddatabasepropertiestoUserentity
+    [Migration("20190106055817_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,7 +101,7 @@ namespace NTUEvents.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime?>("EndDate");
 
                     b.Property<bool?>("IsDeleted");
 
@@ -109,7 +109,7 @@ namespace NTUEvents.Migrations
 
                     b.Property<int?>("Quota");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime?>("StartDate");
 
                     b.Property<string>("Type");
 
