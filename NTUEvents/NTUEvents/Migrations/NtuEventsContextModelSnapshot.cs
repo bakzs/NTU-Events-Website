@@ -101,6 +101,8 @@ namespace NTUEvents.Migrations
 
                     b.Property<DateTime?>("EndDate");
 
+                    b.Property<string>("ImageSource");
+
                     b.Property<bool?>("IsDeleted");
 
                     b.Property<string>("Name");
@@ -116,6 +118,8 @@ namespace NTUEvents.Migrations
                     b.Property<DateTime?>("UpdatedDate");
 
                     b.Property<string>("Venue");
+
+                    b.Property<string>("Website");
 
                     b.HasKey("EventId");
 

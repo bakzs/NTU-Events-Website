@@ -9,7 +9,7 @@ using NTUEvents.Models;
 namespace NTUEvents.Migrations
 {
     [DbContext(typeof(NtuEventsContext))]
-    [Migration("20190106055817_Initial")]
+    [Migration("20190106105728_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,8 @@ namespace NTUEvents.Migrations
 
                     b.Property<DateTime?>("EndDate");
 
+                    b.Property<string>("ImageSource");
+
                     b.Property<bool?>("IsDeleted");
 
                     b.Property<string>("Name");
@@ -118,6 +120,8 @@ namespace NTUEvents.Migrations
                     b.Property<DateTime?>("UpdatedDate");
 
                     b.Property<string>("Venue");
+
+                    b.Property<string>("Website");
 
                     b.HasKey("EventId");
 

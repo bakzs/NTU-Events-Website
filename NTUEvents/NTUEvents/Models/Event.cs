@@ -19,11 +19,13 @@ namespace NTUEvents.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
+        public string ImageSource { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string Venue { get; set; }
         public int? Quota { get; set; }
         public string Contact { get; set; }
+        public string Website { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? UpdatedBy { get; set; }

@@ -40,123 +40,44 @@
         </div>
       </section>
       <hr>
-      <section>
-        <br>
-        <div class="event-item">
-          <b-media no-body>
-            <b-media-aside vertical-align="left">
-              <div class="event-date">
-                <p class="date_mth">JAN</p>
-                <hr class="date-divider">
-                <p class="date_day">11</p>
-              </div>
-            </b-media-aside>
-            <b-media-aside vertical-align="center">
-              <b-img
-                src="https://images.pexels.com/photos/1268558/pexels-photo-1268558.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                width="350"
-                height="256"
-                alt="placeholder"
-              />
-            </b-media-aside>
-            <b-media-body class="ml-5 event-body">
-              <h3 class="mt-0">JAC New Year Party 2019</h3>
-              <div class="event-detail">
-                <p class="event-location">Spottiswoode condominum 48</p>
-                <p class="event-time">6 - 10pm</p>
-              </div>
-              <p class="event-desc">
-                To welcome the new academic year, we’ll be hosting a party! There’ll be delicious Japanese food from Miz restaurant,
-                fun games and prizes to be won! We hope to see you there!
-              </p>
-              <hr>
-              <b-button class="btn-details">
-                View Event Details
-                <i class="fas fa-arrow-right"></i>
-              </b-button>
-            </b-media-body>
-          </b-media>
-        </div>
-        <br>
-        <hr>
-        <br>
-        <div class="event-item">
-          <b-media no-body>
-            <b-media-aside vertical-align="left">
-              <div class="event-date">
-                <p class="date_mth">FEB</p>
-                <hr class="date-divider">
-                <p class="date_day">17</p>
-              </div>
-            </b-media-aside>
-            <b-media-aside vertical-align="center">
-              <b-img
-                src="http://surfnsweat.ntusportsclub.sg/images/img_8895-crop-u2764.jpg?crc=4203607046"
-                width="350"
-                height="256"
-                alt="placeholder"
-              />
-            </b-media-aside>
-            <b-media-body class="ml-5 event-body">
-              <h3 class="mt-0">Surf n Sweat</h3>
-              <div class="event-detail">
-                <p class="event-location">Palawan Beach, Sentosa</p>
-                <p class="event-time">Whole day</p>
-              </div>
-              <p class="event-desc">
-                Surf N Sweat is Singapore's largest annual beach sporting event, proudly organised by Nanyang Technological University Sports Club.
-                We'll be making waves at Palawan Beach, Sentosa, so prepare yourself for a day of adrenaline pumping and exhilarating activities happening on both sand and sea!
-              </p>
-              <hr>
-              <b-button class="btn-details">
-                View Event Details
-                <i class="fas fa-arrow-right"></i>
-              </b-button>
-            </b-media-body>
-          </b-media>
-        </div>
-        <br>
-        <hr>
-        <br>
-        <div class="event-item">
-          <b-media no-body>
-            <b-media-aside vertical-align="left">
-              <div class="event-date">
-                <p class="date_mth">MAR</p>
-                <hr class="date-divider">
-                <p class="date_day">9</p>
-              </div>
-            </b-media-aside>
-            <b-media-aside vertical-align="center">
-              <b-img
-                src="http://bikerally.ntusportsclub.sg/images/regpic.jpg"
-                width="350"
-                height="256"
-                alt="placeholder"
-              />
-            </b-media-aside>
-            <b-media-body class="ml-5 event-body">
-              <h3 class="mt-0">Bike Rally 2019</h3>
-              <div class="event-detail">
-                <p class="event-location">TBC</p>
-                <p class="event-time">TBC</p>
-              </div>
-              <p class="event-desc">
-                Bike Rally is a nationwide, non-competitive cycling event organised by Nanyang Technological University (NTU) Sports Club.
-                It aims to connect both amateur and professional cyclists through their shared love for cycling.
-              </p>
-              <hr>
-              <b-button class="btn-details">
-                View Event Details
-                <i class="fas fa-arrow-right"></i>
-              </b-button>
-            </b-media-body>
-          </b-media>
-        </div>
-        <br>
-        <hr>
-        <br>
-      </section>
+        <template v-for="event in events">
+          <div class="event-item">
+            <br>
+            <b-media no-body>
+              <b-media-aside vertical-align="left">
+                <div class="event-date">
+                  <p class="date_mth_day">{{event.startDay}}</p>
+                  <hr class="date-divider">
+                  <p class="date_day">{{event.startDayWeek}}</p>
+                </div>
+              </b-media-aside>
+              <b-media-aside vertical-align="center">
+                <b-img
+                  :src="event.imageSource"
+                  width="350"
+                  height="256"
+                  alt="placeholder"
+                />
+              </b-media-aside>
+              <b-media-body class="ml-5 event-body">
+                <h3 class="mt-0">{{event.name}}</h3>
+                <div class="event-detail">
+                  <p class="event-location">{{event.venue}}</p>
+                  <p class="event-time"></p>
+                </div>
+                <p class="event-desc">
+                  {{event.description}}
+                </p>
+                <hr>
+                <b-button class="btn-details" :href="event.website">
+                  Find out more
+                  <i class="fas fa-arrow-right"></i>
+                </b-button>
+              </b-media-body>
+            </b-media>
+            <br>
+          </div>
+        </template>
       <section class="prev-event">
         <b-button class="btn-details">
           <i class="fas fa-arrow-left"></i> View previous events
@@ -173,6 +94,57 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      events: []
+    }
+  },
+  methods: {
+    getAllEvents() {
+      this.axios.get('https://localhost:44362/api/events')
+                              .then(response => {
+                                this.events = response.data;
+                                //Update array and format date time using MomentJs
+                                for (let item of this.events) {
+                                  item.startDay = this.$moment(new Date(item.startDate)).format(
+                                    "MMM DD"
+                                  );
+                                  item.endDay = this.$moment(new Date(item.endDate)).format(
+                                    "MMM DD"
+                                  );
+                                  item.startDayWeek = this.$moment(new Date(item.startDate)).format(
+                                    "dddd"
+                                  );
+                                  item.endDayWeek = this.$moment(new Date(item.endDate)).format(
+                                    "dddd"
+                                  );
+                                  /*for (var i = 0; i < this.ccaList.length; i++) {
+                                    if (item.ccaId == this.ccaList[i].value) {
+                                      Object.assign(item, { ccaname: this.ccaList[i].text });
+                                    }
+                                  }*/
+                                }
+                              }
+                              )
+                              .catch(function (error) {
+                                console.log(error);
+                              })
+    },
+    formatDate(date) {
+      let dateObj = this.$moment(date, 'YYYY-MM-DD');
+      return dateObj.format('MMM Do YY');
+    }
+  },
+  computed: {
+  },
+  mounted() {
+    this.getAllEvents();
+  }
+}
+</script>
 
 <style>
 /* Custom CSS design */
@@ -255,7 +227,7 @@ div.item {
   margin: 0px 30px 0px 10px;
 }
 
-.date_mth {
+.date_mth_day {
   letter-spacing: 2px;
   font-weight: 400;
   font-size: 18px;
