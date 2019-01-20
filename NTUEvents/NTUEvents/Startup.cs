@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NTUEvents.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace NTUEvents
 {
@@ -24,6 +25,12 @@ namespace NTUEvents
             services.AddDbContext<NtuEventsContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<AdminContext>(
+                options => options.UseMySql(Configuration.GetConnectionString("AdminIdentity")));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AdminContext>()
+                .AddDefaultTokenProviders();
+
             services.AddCors();
             services.AddMemoryCache();
             services.AddSession();
@@ -38,6 +45,7 @@ namespace NTUEvents
                 app.UseDeveloperExceptionPage();
                 app.UseStaticFiles();
                 app.UseSession();
+                app.UseAuthentication();
                 app.UseCors(builder =>
                     builder
                         .AllowAnyOrigin()
