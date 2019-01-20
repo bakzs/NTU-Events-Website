@@ -320,6 +320,13 @@ export default {
     };
   },
   methods: {
+    insertCCAName(eventInfo) {
+      for (var i = 0; i < this.ccaList.length; i++) {
+        if (eventInfo.ccaId == this.ccaList[i].value) {
+          Object.assign(eventInfo, { ccaname: this.ccaList[i].text });
+        }
+      }
+    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -378,26 +385,29 @@ export default {
             eventInfo.endDate = this.$moment(eventInfo.endDate).toISOString();
             /* Temp fix*/
             eventInfo.createdBy = this.$route.params.userId;
-            eventInfo.createdDate = new Date().toLocaleString();
+            eventInfo.createdDate = new Date().toJSON();
             eventInfo.isDeleted = 0;
             if (this.addEventState == true) {
-              eventInfo.updatedDate = new Date().toLocaleString();
+              eventInfo.updatedDate = new Date().toJSON();
               eventInfo.updatedBy = this.$route.params.userId;
-
+              console.log(eventInfo);
               this.axios({
                 method: "post",
-                url: "https://localhost:44362/api/events/",
+                url: this.$hostname + "/api/events/",
                 data: eventInfo,
                 config: { headers: { "Content-Type": "application/json" } }
               }).catch(error => {
                 alert("Error encountered while creating events");
                 console.log(error);
               });
+              //Include CCA name
+              this.insertCCAName(eventInfo);
+              this.items.push(eventInfo);
               this.dismissMessage = "Event " + eventInfo.name + " created.";
             } else if (this.editEventState == true) {
               this.axios({
                 method: "put",
-                url: "https://localhost:44362/api/events/" + eventInfo.eventId,
+                url: this.$hostname + "/api/events/" + eventInfo.eventId,
                 data: eventInfo,
                 config: { headers: { "Content-Type": "application/json" } }
               }).catch(error => {
@@ -423,7 +433,8 @@ export default {
       this.axios({
         method: "put",
         url:
-          "https://localhost:44362/api/events/" +
+          this.$hostname +
+          "/api/events/" +
           id +
           "/delete/" +
           this.$route.params.userId
@@ -439,7 +450,7 @@ export default {
     //Get list of CCA participation
     this.axios({
       method: "get",
-      url: "https://localhost:44362/api/ccas"
+      url: this.$hostname + "/api/ccas"
     })
       .then(response => {
         for (var i = 0; i < response.data.length; i++) {
@@ -458,9 +469,7 @@ export default {
     //Get user events list
     this.axios({
       method: "get",
-      url:
-        "https://localhost:44362/api/events/createdby/" +
-        this.$route.params.userId
+      url: this.$hostname + "/api/events/createdby/" + this.$route.params.userId
     })
       .then(response => {
         this.items = response.data;
@@ -472,11 +481,7 @@ export default {
           item.endDate = this.$moment(new Date(item.endDate)).format(
             "YYYY-MM-DD HH:mm"
           );
-          for (var i = 0; i < this.ccaList.length; i++) {
-            if (item.ccaId == this.ccaList[i].value) {
-              Object.assign(item, { ccaname: this.ccaList[i].text });
-            }
-          }
+          this.insertCCAName(item);
         }
       })
       .catch(error => {
@@ -487,95 +492,5 @@ export default {
 };
 </script>
 <style>
-/* Default table properties */
-table {
-  font: normal 12px arial;
-  width: 100%;
-}
-
-td {
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-/* Media Queries - Make table become cards*/
-@media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
-    max-width: 100%;
-  }
-
-  /* Remove hover */
-  .table-hover tbody tr:hover td,
-  .table-hover tbody tr:hover {
-    background-color: #ffffff;
-  }
-  /*Shift table headers columns away from view*/
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  /*Set the table row spacing and border*/
-  tr {
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 30px;
-  }
-
-  td {
-    position: relative;
-  }
-
-  /*Adjust and set the position of the table title*/
-  td:before {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    font-weight: bold;
-  }
-
-  .table th,
-  .table td {
-    padding: 1.5rem !important;
-  }
-
-  td:nth-of-type(1):before {
-    content: "#";
-  }
-  td:nth-of-type(2):before {
-    content: "Name";
-  }
-  td:nth-of-type(3):before {
-    content: "Type";
-  }
-  td:nth-of-type(4):before {
-    content: "Description";
-  }
-  td:nth-of-type(5):before {
-    content: "Start Date";
-  }
-  td:nth-of-type(6):before {
-    content: "End Date";
-  }
-  td:nth-of-type(7):before {
-    content: "Venue";
-  }
-  td:nth-of-type(8):before {
-    content: "Quota";
-  }
-  td:nth-of-type(9):before {
-    content: "Contact";
-  }
-  td:nth-of-type(10):before {
-    content: "CCA";
-  }
-}
+@import url("../assets/tablestyle.css");
 </style>

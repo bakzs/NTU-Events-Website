@@ -71,7 +71,7 @@ export default {
       this.$data.userRegistrationForm.CreatedDate = new Date().toLocaleString();
 
       axios
-        .put('https://localhost:44362/api/users/', this.$data.userRegistrationForm)
+        .put(this.$hostname + '/api/users/', this.$data.userRegistrationForm)
         .then(response => {
           console.log(response);
         })

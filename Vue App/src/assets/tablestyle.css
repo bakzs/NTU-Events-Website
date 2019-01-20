@@ -1,0 +1,97 @@
+/*------------------------------------*\
+  #Default Table Properties
+\*------------------------------------*/
+table {
+    font: normal 12px arial;
+    width: 100%;
+  }
+  
+  td {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+/*------------------------------------*\
+    #Media Queries - Table to cards
+\*------------------------------------*/
+
+  @media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+      max-width: 100%;
+    }
+  
+    /* Remove hover */
+    .table-hover tbody tr:hover td,
+    .table-hover tbody tr:hover {
+      background-color: #ffffff;
+    }
+    /*Shift table headers columns away from view*/
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  
+    /*Set the table row spacing and border*/
+    tr {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 30px;
+    }
+  
+    td {
+      position: relative;
+    }
+  
+    /*Adjust and set the position of the table title*/
+    td:before {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      font-weight: bold;
+    }
+  
+    .table th,
+    .table td {
+      padding: 1.5rem !important;
+    }
+  
+    td:nth-of-type(1):before {
+      content: "#";
+    }
+    td:nth-of-type(2):before {
+      content: "Name";
+    }
+    td:nth-of-type(3):before {
+      content: "Type";
+    }
+    td:nth-of-type(4):before {
+      content: "Description";
+    }
+    td:nth-of-type(5):before {
+      content: "Start Date";
+    }
+    td:nth-of-type(6):before {
+      content: "End Date";
+    }
+    td:nth-of-type(7):before {
+      content: "Venue";
+    }
+    td:nth-of-type(8):before {
+      content: "Quota";
+    }
+    td:nth-of-type(9):before {
+      content: "Contact";
+    }
+    td:nth-of-type(10):before {
+      content: "CCA";
+    }
+  }

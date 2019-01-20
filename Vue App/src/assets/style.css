@@ -167,7 +167,7 @@ div.event-header-item {
   #Footer
 \*------------------------------------*/
 
-footer {
+.copyright {
     background: #222;
     color: white;
     text-align: center;

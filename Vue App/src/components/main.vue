@@ -102,7 +102,7 @@
     </section>
     <!-- End of Prev Event Section -->
     <br>
-    <footer>NTUEvents © 2018, All Rights Reserved</footer>
+    <footer class="copyright">NTUEvents © 2018, All Rights Reserved</footer>
   </div>
 </template>
 
@@ -116,7 +116,7 @@ export default {
   methods: {
     getAllEvents() {
       this.axios
-        .get("https://localhost:44362/api/events")
+        .get(this.$hostname + "/api/events")
         .then(response => {
           this.events = response.data;
           //Update array and format date time using MomentJs

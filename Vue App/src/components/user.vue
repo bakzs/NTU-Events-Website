@@ -91,7 +91,7 @@ export default {
       this.$data.userEditForm[0].UpdatedDate = new Date().toLocaleString();
 
       axios
-        .put('https://localhost:44362/api/users/' + this.userId, this.$data.userEditForm[0])
+        .put(this.$hostname + '/api/users/' + this.userId, this.$data.userEditForm[0])
         .then(response => {
           console.log(response);
         })
@@ -114,7 +114,7 @@ export default {
       this.$data.userEditForm[0].UpdatedDate = new Date().toLocaleString();
 
       axios
-        .put('https://localhost:44362/api/users/' + this.userId, this.$data.userEditForm[0])
+        .put(this.$hostname + '/api/users/' + this.userId, this.$data.userEditForm[0])
         .then(response => {
           console.log(response);
         })
@@ -128,7 +128,7 @@ export default {
   },
   mounted(){
       axios
-        .get('https://localhost:44362/api/users/' + this.userId)
+        .get(this.$hostname + '/api/users/' + this.userId)
         .then(
           response => {
             this.$data.userEditForm = response.data;
