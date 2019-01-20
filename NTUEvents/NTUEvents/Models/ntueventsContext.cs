@@ -4,7 +4,7 @@ namespace NTUEvents.Models
 {
     public class NtuEventsContext : DbContext
     {
-        public NtuEventsContext(DbContextOptions options) : base(options)
+        public NtuEventsContext(DbContextOptions<NtuEventsContext> options) : base(options)
         {
         }
 

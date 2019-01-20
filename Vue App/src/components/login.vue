@@ -80,13 +80,14 @@ export default {
           if (result) {
             this.axios({
               method: "post",
-              url: this.$hostname + "/api/accounts",
+              url: "https://localhost:44362/api/accounts",
               data: input
             })
               .then(function(response) {
                 this.$router.push("/main/");
               })
               .catch(function(error) {
+                alert("Error");
                 this.dismissMessage =
                   "The username and / or password is incorrect";
                 this.dismissCountDown = this.dismissSecs;

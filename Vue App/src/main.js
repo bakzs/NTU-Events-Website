@@ -46,7 +46,7 @@ jQuery.extend(true, jQuery.fn.datetimepicker.defaults, {
 });
 window.$ = window.jQuery = require("jquery");
 
-Vue.prototype.$hostname = 'https://localhost:44362';
+Vue.prototype.$hostname = 'https://ntuevent.mysql.database.azure.com:3306';
 
 new Vue({
   router,
