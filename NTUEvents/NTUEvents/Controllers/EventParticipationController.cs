@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTUEvents.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NTUEvents.Controllers
 {
@@ -16,6 +17,7 @@ namespace NTUEvents.Controllers
      */
 
     [Route("api/eventparticipations")]
+    [Authorize]
     [ApiController]
     public class EventParticipationController : Controller
     {

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTUEvents.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NTUEvents.Controllers
 {
@@ -39,6 +40,7 @@ namespace NTUEvents.Controllers
         }
 
         //GET: api/events/createdby/{userId}
+        [Authorize]
         [HttpGet("createdby/{userId}")]
         public ActionResult<IEnumerable<Event>> GetAllUserCreatedEvents(int userId)
         {
@@ -66,6 +68,7 @@ namespace NTUEvents.Controllers
         }
 
         //GET: api/events/user/{userId}
+        [Authorize]
         [HttpGet("user/{userId}")]
         public ActionResult<IEnumerable<Event>> GetAllUserEvents(int userId)
         {
@@ -73,6 +76,7 @@ namespace NTUEvents.Controllers
         }
 
         //POST: api/events
+        [Authorize]
         [HttpPost]
         public ActionResult<Event> CreateEvent([FromBody] Event eventItem)
         {
@@ -84,6 +88,7 @@ namespace NTUEvents.Controllers
 
         //PUT: api/events/{eventId}
         //Generate UpdatedBy and UpdatedDate in client
+        [Authorize]
         [HttpPut("{eventId}")]
         public ActionResult UpdateEvent(int eventId, [FromBody] Event eventItem)
         {
@@ -100,6 +105,7 @@ namespace NTUEvents.Controllers
 
         //SOFT DELETE
         //PUT: api/events/{eventId}/delete/{userId}
+        [Authorize]
         [HttpPut("{eventId}/delete/{userId}")]
         public ActionResult<Event> DeleteEvent(int eventId, int userId)
         {
@@ -120,6 +126,7 @@ namespace NTUEvents.Controllers
 
         //SOFT DELETE
         //PUT: api/events/{userId}/deleteall
+        [Authorize]
         [HttpPut("{userId}/deleteall")]
         public ActionResult<IEnumerable<Event>> DeleteAllUserEvents(int userId)
         {

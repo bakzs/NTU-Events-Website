@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NTUEvents.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NTUEvents.Controllers
 {
@@ -15,6 +16,7 @@ namespace NTUEvents.Controllers
      */
 
     [Route("api/users")]
+    [Authorize]
     [ApiController]
     public class UserController : Controller
     {
