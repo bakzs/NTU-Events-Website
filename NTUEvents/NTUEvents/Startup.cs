@@ -60,6 +60,8 @@ namespace NTUEvents
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            AdminSeedData.EnsurePopulated(app);
         }
     }
 }
