@@ -10,13 +10,16 @@ namespace NTUEvents.Models
         private const string adminPassword = "Secret123$";
         public static async void EnsurePopulated(IApplicationBuilder app)
         {
-            UserManager<IdentityUser> userManager = app.ApplicationServices
-            .GetRequiredService<UserManager<IdentityUser>>();
-            IdentityUser user = await userManager.FindByIdAsync(adminUser);
-            if (user == null)
+            using (var scope = app.ApplicationServices.CreateScope())
             {
-                user = new IdentityUser("Admin");
-                await userManager.CreateAsync(user, adminPassword);
+                //Resolve ASP .NET Core Identity with DI help
+                var userManager = (UserManager<IdentityUser>)scope.ServiceProvider.GetService(typeof(UserManager<IdentityUser>));
+                IdentityUser user = await userManager.FindByIdAsync(adminUser);
+                if (user == null)
+                {
+                    user = new IdentityUser("Admin");
+                    await userManager.CreateAsync(user, adminPassword);
+                }
             }
         }
     }

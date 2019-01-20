@@ -45,7 +45,6 @@ namespace NTUEvents
                 app.UseDeveloperExceptionPage();
                 app.UseStaticFiles();
                 app.UseSession();
-                app.UseAuthentication();
                 app.UseCors(builder =>
                     builder
                         .AllowAnyOrigin()
@@ -57,6 +56,8 @@ namespace NTUEvents
             {
                 app.UseHsts();
             }
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();
