@@ -26,3 +26,12 @@ body {
   margin: auto;
   /*color: white;*/
 }
+
+/*------------------------------------*\
+  #Register  Form
+\*------------------------------------*/
+
+.register-form {
+  width: 100%;
+  margin: 0 auto;
+}

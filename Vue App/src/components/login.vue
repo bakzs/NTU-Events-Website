@@ -1,9 +1,15 @@
 <template>
   <div class="login">
     <b-container>
-      <b-form class="login-form">
+      <b-form @submit.prevent="login" class="login-form">
         <h3 class="text-center">NTUEvents</h3>
         <br>
+        <b-alert
+          id="loginAlert"
+          variant="success"
+          :show="showDismissibleAlert"
+          @dismissed="showDismissibleAlert=false"
+        >Please login again</b-alert>
         <b-alert
           :show="dismissCountDown"
           dismissible
@@ -49,7 +55,7 @@
           ></b-form-input>
         </b-form-group>
         <br>
-        <b-button type="submit" @click.stop.prevent="login()" variant="primary">Submit</b-button>
+        <b-button type="submit" variant="primary">Submit</b-button>
       </b-form>
     </b-container>
   </div>
@@ -77,27 +83,18 @@ export default {
       this.$validator
         .validateAll()
         .then(result => {
+          var cur = this;
           if (result) {
             this.axios({
               method: "post",
-              url: "https://localhost:44362/api/accounts",
-              data: input
-            })
-              .then(function(response) {
-                this.$router.push("/main/");
-              })
-              .catch(function(error) {
-                alert("Error");
-                this.dismissMessage =
-                  "The username and / or password is incorrect";
-                this.dismissCountDown = this.dismissSecs;
-                $("#userTbx")
-                  .removeClass("is-valid")
-                  .addClass("is-invalid");
-                $("#passwordTbx")
-                  .removeClass("is-valid")
-                  .addClass("is-invalid");
-              });
+              url: this.$hostname + "/api/accounts",
+              data: this.input,
+              config: { headers: { "Content-Type": "application/json" } }
+            }).then(function(response) {
+              if (response.status == "200") {
+                cur.$router.push("/main");
+              }
+            });
           }
         })
         .catch(() => {});
@@ -107,9 +104,42 @@ export default {
     //Clean validation initial load
     $("#userTbx").removeClass("is-valid");
     $("#passwordTbx").removeClass("is-valid");
+
+    //Check if it's a reload from Submit
+    if (localStorage.getItem("throwError") == "true") {
+      //Throw Error
+      this.dismissMessage = "The username and / or password is incorrect";
+      this.dismissCountDown = this.dismissSecs;
+      $("#userTbx")
+        .removeClass("is-valid")
+        .addClass("is-invalid");
+      $("#passwordTbx")
+        .removeClass("is-valid")
+        .addClass("is-invalid");
+      localStorage.setItem("throwError", "false");
+    }
+
+    //Show alert if it's directed to login after register page
+    if (localStorage.getItem("loginAlert") == "true") {
+      this.showDismissibleAlert = true;
+      localStorage.setItem("loginAlert", "false");
+    }
+
+    //Detect and set local storage error status
+    this.axios.interceptors.response.use(
+      response => response,
+      error => {
+        const { status } = error.response;
+        if (status === 400) {
+          localStorage.setItem("throwError", "true");
+          this.$router.go(this.$hostname);
+        }
+        return Promise.reject(error.response);
+      }
+    );
   }
 };
 </script>
 <style>
-@import url("../assets/login.css");
+@import url("../assets/form.css");
 </style>

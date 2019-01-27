@@ -10,6 +10,7 @@
         <b-collapse is-nav id="nav_collapse">
           <b-navbar-nav>
             <b-nav-item class="active" to="/main">Home</b-nav-item>
+            <!-- Remove links -->
             <b-nav-item to="/login">Login</b-nav-item>
             <b-nav-item to="/register">Register</b-nav-item>
             <b-nav-item to="/user">User Profile</b-nav-item>
