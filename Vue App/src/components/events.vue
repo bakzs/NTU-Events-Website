@@ -112,10 +112,11 @@
                   id="startDateDp"
                   v-model="eventInfo.startDate"
                   :state="!errors.has('Start Date')"
-                  v-validate="'required|date_format:YYYY-MM-DD HH:mm'"
+                  v-validate="'required|date_format:YYYY-MM-DD HH:mm|before:endDate'"
                   :class="this.$validator.errors.has('Start Date') ? 'is-invalid' : 'is-valid'"
                   :config="options.start"
                   name="Start Date"
+                  ref="startDate"
                 ></date-picker>
               </b-form-group>
             </div>
@@ -131,10 +132,11 @@
                   id="endDateDp"
                   v-model="eventInfo.endDate"
                   :state="!errors.has('End Date')"
-                  v-validate="'required|date_format:YYYY-MM-DD HH:mm'"
+                  v-validate="'required|date_format:YYYY-MM-DD HH:mm|after:startDate'"
                   :class="this.$validator.errors.has('End Date') ? 'is-invalid' : 'is-valid'"
                   :config="options.end"
                   name="End Date"
+                  ref="endDate"
                 ></date-picker>
               </b-form-group>
             </div>

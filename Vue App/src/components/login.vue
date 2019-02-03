@@ -92,7 +92,7 @@ export default {
               config: { headers: { "Content-Type": "application/json" } }
             }).then(function(response) {
               if (response.status == "200") {
-                cur.$router.push("/main");
+                  cur.$router.push("/main");
               }
             });
           }
