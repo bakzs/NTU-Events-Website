@@ -17,9 +17,8 @@ namespace NTUEvents.Controllers
      4. [Put]    UpdateCca            - api/ccas/{ccaId}
      5. [Put]    DeleteCca            - api/ccas/delete/{ccaId}
      */
-
-    [Route("api/ccas")]
     [ApiController]
+    [Route("api/ccas")]
     public class CcaController : Controller
     {
         private readonly NtuEventsContext ntuEventsContext_Db;
@@ -56,7 +55,6 @@ namespace NTUEvents.Controllers
         }
 
         //GET: api/ccas/user/{userId}
-        [Authorize]
         [HttpGet("user/{userId}")]
         public ActionResult<IEnumerable<Cca>> GetAllUserCcas(int userId)
         {
@@ -65,7 +63,6 @@ namespace NTUEvents.Controllers
 
         //POST: api/ccas
         //Generate CreatedBy and CreatedDate at client
-        [Authorize]
         [HttpPost]
         public ActionResult<Cca> CreateCca([FromBody] Cca ccaItem)
         {
@@ -77,7 +74,6 @@ namespace NTUEvents.Controllers
 
         //PUT: api/ccas/{ccaId}
         //Generate UpdatedBy and UpdatedDate in client
-        [Authorize]
         [HttpPut("{ccaId}")]
         public ActionResult UpdateCca(int ccaId, [FromBody] Cca ccaItem)
         {
@@ -95,7 +91,6 @@ namespace NTUEvents.Controllers
         //SOFT DELETE
         //PUT: api/ccas/delete/{ccaId}
         //Generate DeletedBy in client
-        [Authorize]
         [HttpPut("delete/{ccaId}")]
         public ActionResult<Cca> DeleteCca(int ccaId)
         {

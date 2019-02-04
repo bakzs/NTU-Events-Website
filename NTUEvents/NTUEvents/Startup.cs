@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NTUEvents.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace NTUEvents
 {
@@ -20,9 +28,8 @@ namespace NTUEvents
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-            services.AddDbContext<NtuEventsContext>(
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                        services.AddDbContext<NtuEventsContext>(
                 options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AdminContext>(
@@ -30,10 +37,6 @@ namespace NTUEvents
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AdminContext>()
                 .AddDefaultTokenProviders();
-
-            services.AddCors();
-            services.AddMemoryCache();
-            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,28 +44,16 @@ namespace NTUEvents
         {
             if (env.IsDevelopment())
             {
-                app.UseStatusCodePages();
                 app.UseDeveloperExceptionPage();
-                app.UseStaticFiles();
-                app.UseSession();
-                app.UseCors(builder =>
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
             }
             else
             {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseAuthentication();
-
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            AdminSeedData.EnsurePopulated(app);
         }
     }
 }

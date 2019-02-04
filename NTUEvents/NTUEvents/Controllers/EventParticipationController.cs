@@ -15,10 +15,8 @@ namespace NTUEvents.Controllers
      3. [Put]    UpdateEventParticipation      - api/eventparticipations/{userId}/{eventId}
      4. [Put]    DeleteAllEventParticipations  - api/eventparticipations/{eventId}/deleteall
      */
-
-    [Route("api/eventparticipations")]
-    [Authorize]
     [ApiController]
+    [Route("api/eventparticipations")]
     public class EventParticipationController : Controller
     {
         private readonly NtuEventsContext ntuEventsContext_Db;

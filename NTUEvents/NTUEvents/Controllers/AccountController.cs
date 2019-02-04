@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace NTUEvents.Controllers
 {
-    [Route("api/accounts")]
-    [Authorize]
     [ApiController]
+    [Route("api/accounts")]
     public class AccountController : Controller
     {
         private UserManager<IdentityUser> userManager;
@@ -22,7 +21,6 @@ namespace NTUEvents.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Account accountItem)
         {
             if (ModelState.IsValid)

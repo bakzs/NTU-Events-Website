@@ -15,9 +15,8 @@ namespace NTUEvents.Controllers
      4. [Put]    DeleteUser      - api/users/{userId}/delete
      */
 
-    [Route("api/users")]
-    [Authorize]
     [ApiController]
+    [Route("api/users")]
     public class UserController : Controller
     {
         private readonly NtuEventsContext ntuEventsContext_Db;
@@ -33,7 +32,6 @@ namespace NTUEvents.Controllers
         {
             var userItem = from u in ntuEventsContext_Db.Users
                            where u.UserId == userId
-                            && u.IsDeleted.Equals(false)
                             select u;
 
             if (!userItem.Any())

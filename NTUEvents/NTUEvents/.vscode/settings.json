@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/3c82ee21-2f2e-4510-98f9-b07339b7f7ab/resourceGroups/ntueventweb/providers/Microsoft.Web/sites/ntueventsweb",
+    "appService.deploySubpath": ""
+}
