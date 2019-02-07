@@ -194,7 +194,7 @@ export default {
             .then(function(response) {
               cur.showSuccessAlert = true;
               cur.canBeEdited = false;
-              this.dismissMessage = "Profile updated!";
+              cur.dismissMessage = "Profile updated!";
             })
             .catch(error => {
               alert("Error encountered while updating user profile");
@@ -210,7 +210,7 @@ export default {
       cur.displayUserProfile = true;
       cur.canChangePassword = false;
       cur.showSuccessAlert = true;
-      this.dismissMessage = "Password updated!";
+      cur.dismissMessage = "Password updated!";
     },
     getBack() {
       if (!this.canBeEdited && !this.canChangePassword) {

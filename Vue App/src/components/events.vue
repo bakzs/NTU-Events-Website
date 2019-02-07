@@ -190,7 +190,7 @@
                   id="venueTbx"
                   v-model="eventInfo.venue"
                   :state="!errors.has('Venue')"
-                  v-validate="'required|min:5|max:30'"
+                  v-validate="'required|min:1|max:100'"
                   type="text"
                   name="Venue"
                 ></b-form-input>
@@ -226,7 +226,7 @@
               id="descriptionTbx"
               v-model="eventInfo.description"
               :state="!errors.has('Description')"
-              v-validate="'required|min:20|max:120'"
+              v-validate="'required|min:20|max:500'"
               :class="this.$validator.errors.has('Description') ? 'is-invalid' : 'is-valid'"
               :rows="3"
               :max-rows="6"
@@ -462,32 +462,34 @@ export default {
           };
           this.ccaList.push(item);
         }
+        //Get user events list
+        this.axios({
+          method: "get",
+          url:
+            this.$hostname +
+            "/api/events/createdby/" +
+            this.$route.params.userId
+        })
+          .then(response => {
+            this.items = response.data;
+            //Update array and format date time using MomentJs
+            for (let item of this.items) {
+              item.startDate = this.$moment(new Date(item.startDate)).format(
+                "YYYY-MM-DD HH:mm"
+              );
+              item.endDate = this.$moment(new Date(item.endDate)).format(
+                "YYYY-MM-DD HH:mm"
+              );
+              this.insertCCAName(item);
+            }
+          })
+          .catch(error => {
+            alert("Error encountered while retrieving events");
+            console.log(error);
+          });
       })
       .catch(error => {
         alert("Error encountered while retrieving cca");
-        console.log(error);
-      });
-
-    //Get user events list
-    this.axios({
-      method: "get",
-      url: this.$hostname + "/api/events/createdby/" + this.$route.params.userId
-    })
-      .then(response => {
-        this.items = response.data;
-        //Update array and format date time using MomentJs
-        for (let item of this.items) {
-          item.startDate = this.$moment(new Date(item.startDate)).format(
-            "YYYY-MM-DD HH:mm"
-          );
-          item.endDate = this.$moment(new Date(item.endDate)).format(
-            "YYYY-MM-DD HH:mm"
-          );
-          this.insertCCAName(item);
-        }
-      })
-      .catch(error => {
-        alert("Error encountered while retrieving events");
         console.log(error);
       });
   }

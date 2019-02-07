@@ -10,11 +10,17 @@
         <b-collapse is-nav id="nav_collapse">
           <b-navbar-nav>
             <b-nav-item class="active" to="/main">Home</b-nav-item>
+            <b-nav-item to>About</b-nav-item>
             <!-- Remove links -->
-            <b-nav-item to="/login">Login</b-nav-item>
+            <!--<b-nav-item to="/login">Login</b-nav-item>
             <b-nav-item to="/register">Register</b-nav-item>
             <b-nav-item to="/user">User Profile</b-nav-item>
-            <b-nav-item to="/events">Events</b-nav-item>
+            <b-nav-item to="/events">Events</b-nav-item>-->
+          </b-navbar-nav>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item to="/login">Login</b-nav-item>
+            <b-nav-item to="/register">Register</b-nav-item>
+            <b-nav-item to>Contact</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </div>
@@ -65,11 +71,7 @@
                     </div>
                   </div>
                   <div class="col-md-4">
-                    <img
-                      width="350"
-                      height="256"
-                      :src="event.imageSource"
-                    >
+                    <img width="350" height="256" :src="event.imageSource">
                   </div>
                   <div class="col-md-6">
                     <div class="event-row event-header">{{event.name}}</div>
@@ -77,9 +79,7 @@
                       <p class="event-location">{{event.venue}}</p>
                     </div>
                     <hr>
-                    <div
-                      class="event-row event-desc"
-                   >{{event.description}}</div>
+                    <div class="event-row event-desc">{{event.description}}</div>
                     <b-button class="btn-details" :href="event.website">
                       Find out more
                       <i class="fas fa-arrow-right"></i>
