@@ -33,7 +33,7 @@ body,
 
 .bg-cover {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-        url("https://images.pexels.com/photos/9044/pexels-photo.jpg?cs=srgb&dl=bokeh-city-dark-9044.jpg&fm=jpg");
+        url("bokeh-city-dark-9044_compressed.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
