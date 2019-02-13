@@ -93,8 +93,14 @@ Step 5:
 * Microsoft Visual Studio - Press F5
 
 ## Running the tests
+Currently, we have not implemented any automated testing.
+
+Don't worry, we will review all pull requests to make sure the app does not break!
 
 ## Deployment
+After a successful pull request, we will manually deploy the updated code.
+
+We aim to automate the deployment process.
 
 ## Built With
 
@@ -114,7 +120,8 @@ We use [GitHub](https://github.com/) for versioning. For the versions available,
 
 ## To-Do
 * Add user login functionality, with JWT tokens
-* Add tests
+* Add automated testing
+* Automate deployment process, with continuous integration
 
 ## Authors
 * [Tan Jia Wei](https://github.com/JiaweiTan/)
