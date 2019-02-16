@@ -1,6 +1,8 @@
 # NTU Events
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) [![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg)](https://github.com/JiaweiTan/NTU-Events-Website/blob/master/CONTRIBUTING.md#code-of-conduct) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-34-orange.svg?style=flat-square)](2)
 
 ### Team
 
