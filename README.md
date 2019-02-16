@@ -1,6 +1,10 @@
 # NTU Events
 
-This readme was written by [Lee Wei Min](https://github.com/leeweiminsg/). You can check out his [website](https://leeweimin.com/).
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+### Team
+
+
 
 **The Problem**
 
@@ -128,4 +132,6 @@ We use [GitHub](https://github.com/) for versioning. For the versions available,
 * [Lee Wei Min](https://github.com/leeweiminsg/)
 
 ## License
-&copy; Tan Jia Wei, Lee Wei Min 2019
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+[MIT](https://github.com/JiaweiTan/NTU-Events-Website/blob/master/LICENSE)
