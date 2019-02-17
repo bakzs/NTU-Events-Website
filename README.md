@@ -82,7 +82,7 @@ Step 1: Install the software in "Prerequisites" section
 
 Step 2: Read "Getting Started" section
 
-Step 3: Clone repository (Note: forking the repository does not make the repository public)
+Step 3: Fork repository
 
 Step 4: Install/update relevant packages:
 * Vue CLI 3 - Use Vue UI (plugins, dependencies sections)
