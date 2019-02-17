@@ -2,10 +2,6 @@
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) [![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg)](https://github.com/JiaweiTan/NTU-Events-Website/blob/master/CONTRIBUTING.md#code-of-conduct) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-### Contributors
-
-
-
 **The Problem**
 
 If a student wishes to find out about a CCA's upcoming events, he has to visit the [official CCA directory page](https://www.ntu.edu.sg/CampusLife/Clubs/pages/clubssocieties.aspx) first, before entering the CCA's website. This is a time-consuming process which severely limits student awareness and participation.
