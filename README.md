@@ -131,3 +131,6 @@ We use [GitHub](https://github.com/) for versioning. For the versions available,
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 [MIT](https://github.com/JiaweiTan/NTU-Events-Website/blob/master/LICENSE)
+
+## Star if you like it.
+If you enjoyed using this, do show your support by starring it!
